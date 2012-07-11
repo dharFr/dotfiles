@@ -7,10 +7,12 @@
 DOT_FILES_DIR=".dotfiles"
 
 cd "$(dirname "$0")"
-#git pull
+git pull
 function doIt() {
-  rsync --exclude ".git/" --exclude ".DS_Store" --exclude "bootstrap.sh" --exclude "README.md" -av . ~/"$DOT_FILES_DIR"
-  mv -f ~/"$DOT_FILES_DIR"/.bash_profile ~
+  
+  rsync --exclude ".git/" --exclude ".DS_Store" --exclude "bootstrap.sh" --exclude "README.md" --exclude "home" -av . ~/"$DOT_FILES_DIR"
+  # everything under ./home dir goes to ~ 
+  cd home && rsync -av . ~
 }
 if [ "$1" == "--force" -o "$1" == "-f" ]; then
   doIt

@@ -1,0 +1,18 @@
+[user]
+	name = Olivier Audard
+	email = audard@gmail.com
+[core]
+	excludesfile = ~/.gitignore-global
+	whitespace = trailing-space,space-before-tab,tab-in-indent
+[color]
+	branch = auto
+	diff = auto
+	grep = auto
+	interactive = auto
+	status = auto
+	ui = auto
+
+# Use `origin` as the default remote on the `master` branch in all cases
+[branch "master"]
+	remote = origin
+	merge = refs/heads/master
