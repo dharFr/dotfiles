@@ -1,3 +1,6 @@
+[alias]
+	# View the current working tree status using the untracked mode
+	st = status -u
 [user]
 	name = Olivier Audard
 	email = audard@gmail.com

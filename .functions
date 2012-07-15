@@ -1,3 +1,8 @@
+# Create a new directory and enter it
+function md() {
+  mkdir -p "$@" && cd "$@"
+}
+
 #Start an HTTP server from a directory, optionally specifying the port
 function server {
   local port="${1:-8000}"

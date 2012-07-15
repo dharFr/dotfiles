@@ -3,7 +3,7 @@ export DOT_FILES="$HOME/.dotfiles"
 echo "bash init...."
 ## Load .bash_prompt, .functions and .extra from $DOT_FILES
 # .extra can be used for settings you don’t want to commit
-for file in $DOT_FILES/.{bash_prompt,functions,extra}; do
+for file in $DOT_FILES/.{bash_prompt,functions,aliases,extra}; do
   [ -r "$file" ] && source "$file"
   echo "|- loaded $file"
 done
