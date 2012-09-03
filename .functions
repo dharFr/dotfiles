@@ -9,3 +9,28 @@ function server {
   open "http://localhost:${port}/"
   python -m SimpleHTTPServer "$port"
 }
+
+# grailsenv - Dynamically switch your GRAILS_HOME 
+# grailsenv [VERSION]
+# Try to switch your GRAILS_HOME property to 'grails-VERSION' 
+# according to the current value
+# 
+# if a 'grails-VERSION' directory exists in the same folder, 
+# exports a new GRAILS_HOME and add it to the PATH
+# 
+# Without parameters, displays the current GRAILS_HOME value
+function grailsenv {
+
+    local __grails_parent=${GRAILS_HOME/\/grails*/}
+    if [ -v $1 ]; then
+        echo "GRAILS_HOME=$GRAILS_HOME"
+        ls "$__grails_parent/" | grep grails
+    elif [ -e "$__grails_parent/grails-$1" ]; then
+        export GRAILS_HOME="$__grails_parent/grails-$1"
+        export PATH=$GRAILS_HOME/bin:$PATH
+        echo "GRAILS_HOME=$GRAILS_HOME"
+    else
+        echo "$__grails_parent/grails-$1 doesn't exist... "
+        ls "$__grails_parent/" | grep grails
+    fi
+}
