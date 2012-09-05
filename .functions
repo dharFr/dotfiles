@@ -21,7 +21,7 @@ function server {
 # Without parameters, displays the current GRAILS_HOME value
 function grailsenv {
 
-    local __grails_parent=$GRAILS_HOME/..
+    local __grails_parent=`dirname $GRAILS_HOME`
     if [ -v $1 ]; then
         echo "GRAILS_HOME=$GRAILS_HOME"
         ls "$__grails_parent/" | grep grails
