@@ -32,5 +32,7 @@ export LSCOLORS=GxFxCxDxBxegedabagaced
 [ -f /etc/bash_completion ] && source /etc/bash_completion
 
 # ruby conf I guess?
-export PATH="$HOME/.rbenv/bin:$PATH"
-eval "$(rbenv init -)"
+if [ -d $HOME/.rbenv/bin ]; then
+	export PATH="$HOME/.rbenv/bin:$PATH"
+	eval "$(rbenv init -)"
+fi
