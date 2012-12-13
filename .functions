@@ -51,3 +51,35 @@ function grailsenv {
       echo "New: GRAILS_HOME=$GRAILS_HOME"
     fi
 }
+
+# Apply svn sub-command to every newly created file (marked with ? in 'svn status')
+# Example : 
+# 
+# Add every new file
+# > svn-allnew add
+# 
+# Still works with extra parameters
+# > svn-allnew add --force
+function svn-allnew {
+  if [ -z $1 ]; then
+    echo "Please add an svn-subcommand as a parameter (try 'svn help')"
+  else
+    svn st | grep '^\?' | awk '{print $2}' | xargs svn $*
+  fi 
+}
+
+# Apply svn sub-command to every deleted file (marked with ! in 'svn status')
+# Example : 
+# 
+# Delete every missing file from repo
+# > svn-alldeleted delete
+# 
+# Still works with extra parameters
+# > svn-alldeleted delete --force
+function svn-alldeleted {
+  if [ -z $1 ]; then
+    echo "Please add an svn-subcommand as a parameter (try 'svn help')"
+  else
+    svn st | grep '^!' | awk '{print $2}' | xargs svn $*
+  fi 
+}
