@@ -11,5 +11,5 @@ else
 fi
 
 # svn aliases
-svn-rmall "svn st | grep '^!' | awk '{print $2}' | xargs svn rm"
-svn-addall "svn st | grep '^?' | awk '{print $2}' | xargs svn add"
+alias svn-rmall="svn st | grep '^!' | awk '{print $2}' | xargs svn rm"
+alias svn-addall="svn st | grep '^?' | awk '{print $2}' | xargs svn add"
