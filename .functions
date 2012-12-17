@@ -52,6 +52,52 @@ function grailsenv {
     fi
 }
 
+
+function grailsrun {
+
+  gr_port="8080"
+  gr_ip="localhost"
+  gr_host=0
+
+  usage() {
+    echo "Launch 'grails run-app' with options."
+    echo ""
+    echo " -h | --help Display help"
+    echo " -r | --remote-host Run 'grails run-app' with -Dserver.host={your-ip} option"
+    echo " -p | --port Run 'grails run-app' with -Dserver.port={value}"
+    echo ""
+    echo "Example:"
+    echo "> grailsrun -r -p 9090"
+    echo "will run => grails -Dserver.host={your-ip} -Dserver.port=9090 run-app "
+    echo ""
+    echo "> grailsrun -p 8081"
+    echo "will run => grails -Dserver.port=8081 run-app "
+  }
+  
+  while [ "$1" != "" ]; do
+    case $1 in
+      -p | --port ) shift
+                  gr_port=${1}
+                  ;;
+      -r | --remote-host ) gr_host=1
+                  ;;
+      -h | --help ) usage
+                  exit 1
+    esac
+    shift
+  done
+   
+  if [ $gr_host = 1 ]; then
+    gr_ip="`ifconfig eth0 | grep inet\ adr: | awk {'print $2'} | sed s/.*://`"
+  fi
+   
+  echo "| Launching: grails -Dserver.host=$gr_ip -Dserver.port=$gr_port run-app"
+  echo ""
+  grails -Dserver.host=$gr_ip -Dserver.port=$gr_port run-app 
+}
+
+
+
 # Apply svn sub-command to every newly created file (marked with ? in 'svn status')
 # Example : 
 # 
