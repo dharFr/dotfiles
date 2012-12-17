@@ -88,7 +88,7 @@ function grailsrun {
   done
    
   if [ $gr_host = 1 ]; then
-    gr_ip="`ifconfig eth0 | grep inet\ adr: | awk {'print $2'} | sed s/.*://`"
+    gr_ip="`ifconfig eth0 | grep inet\ addr:| awk {'print $2'} | sed s/.*://`"
   fi
    
   echo "| Launching: grails -Dserver.host=$gr_ip -Dserver.port=$gr_port run-app"
