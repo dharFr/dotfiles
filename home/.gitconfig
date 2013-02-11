@@ -1,6 +1,21 @@
 [alias]
+	# see http://www.durdn.com/blog/2012/11/22/must-have-git-aliases-advanced-examples/
+	# ==========================================================================
+
+	co = checkout
+	br = branch
+
 	# View the current working tree status using the untracked mode
 	st = status -u
+	
+	# List commits in short form, with colors and branch/tag annotations
+	ls = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate
+
+	# List commits showing changed files
+	ll = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --numstat
+
+	# List with no colors if you need to chain the out put with Unix pipes
+	lnc = log --pretty=format:"%h\\ %s\\ [%cn]"
 [user]
 	name = Olivier Audard
 	email = audard@gmail.com
