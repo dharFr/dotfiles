@@ -21,13 +21,9 @@ function server {
 # Without parameters, displays the current GRAILS_HOME value
 function grailsenv {
 
-    local __grails_parent=`dirname $GRAILS_HOME`
-    local __version
 
-    echo "Old: GRAILS_HOME=$GRAILS_HOME"
-
-    # without arguments, log available grails folders 
-    # or check for application.properties file
+    # without arguments, log available grails folders 
+    # or check for application.properties file
     if [ -v $1 ]; then
         if [ -f 'application.properties' ]; then
           echo "> reading grails version from application.properties file..."
@@ -36,22 +32,16 @@ function grailsenv {
         else
           echo ""
           echo "Available versions: "
-          ls "$__grails_parent/" | grep grails
+          gvm list grails
         fi
-    elif [ -e "$__grails_parent/grails-$1" ]; then
-       __version=$1
     else
-        echo "$__grails_parent/grails-$1 doesn't exist... "
-        ls "$__grails_parent/" | grep grails
+        __version=$1
     fi
 
     if [ ! -v $__version ]; then
-      export GRAILS_HOME="$__grails_parent/grails-$__version"
-      export PATH=$GRAILS_HOME/bin:$PATH
-      echo "New: GRAILS_HOME=$GRAILS_HOME"
+        gvm use grails $__version
     fi
 }
-
 
 function grailsrun {
 

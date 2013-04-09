@@ -36,3 +36,7 @@ if [ -d $HOME/.rbenv/bin ]; then
 	export PATH="$HOME/.rbenv/bin:$PATH"
 	eval "$(rbenv init -)"
 fi
+
+# GVM setup
+[[ -s "$HOME/.gvm/bin/gvm-init.sh" && -z $(which gvm-init.sh | grep '/gvm-init.sh') ]] && source "$HOME/.gvm/bin/gvm-init.sh"
+
