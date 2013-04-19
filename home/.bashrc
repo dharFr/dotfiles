@@ -40,3 +40,5 @@ fi
 # GVM setup
 [[ -s "$HOME/.gvm/bin/gvm-init.sh" && -z $(which gvm-init.sh | grep '/gvm-init.sh') ]] && source "$HOME/.gvm/bin/gvm-init.sh"
 
+# This loads NVM
+[[ -s /home/oad/.nvm/nvm.sh ]] && . /home/oad/.nvm/nvm.sh
