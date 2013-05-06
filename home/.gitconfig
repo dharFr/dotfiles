@@ -3,7 +3,12 @@
 	# ==========================================================================
 
 	co = checkout
-	br = branch
+	br = branch -v
+  ba = branch -va
+  cm = commit -v
+	ru = remote update
+  nlog = log --name-status --decorate
+  gr = log --pretty=oneline --abbrev-commit --decorate --graph
 
 	# View the current working tree status using the untracked mode
 	st = status -u
@@ -16,13 +21,19 @@
 
 	# List with no colors if you need to chain the out put with Unix pipes
 	lnc = log --pretty=format:"%h\\ %s\\ [%cn]"
+
 [user]
 	name = Olivier Audard
 	email = audard@gmail.com
+
 [core]
 	excludesfile = ~/.gitignore-global
 	whitespace = trailing-space,space-before-tab,tab-in-indent
-	editor = vi
+	editor = vim
+
+[rerere]
+  enabled = true
+  
 [color]
 	branch = auto
 	diff = auto
@@ -35,5 +46,7 @@
 [branch "master"]
 	remote = origin
 	merge = refs/heads/master
+
 [merge]
     tool = vimdiff
+    summary = true
