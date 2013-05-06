@@ -4,7 +4,10 @@ export LESS_TERMCAP_md="$ORANGE"
 # Larger bash history (allow 32³ entries; default is 500)
 export HISTSIZE=32768
 export HISTFILESIZE=$HISTSIZE
+# don't put duplicate lines in the history. See bash(1) for more options
 export HISTCONTROL=ignoredups
+# Keep track of when a command was launched
+export HISTTIMEFORMAT="%y-%m-%d %H:%M "
 # Make some commands not show up in history
 export HISTIGNORE="ls:cd:cd -:pwd:exit:date:* --help"
 

@@ -20,6 +20,10 @@ shopt -s histappend
 # Autocorrect typos in path names when using `cd`
 shopt -s cdspell
 
+# check the window size after each command and, if necessary,
+# update the values of LINES and COLUMNS.
+shopt -s checkwinsize
+
 # Prefer French and use UTF-8
 export LANG="fr_FR.UTF-8"
 
@@ -27,6 +31,9 @@ export LANG="fr_FR.UTF-8"
 export CLICOLOR=1
 #export LSCOLORS=ExFxCxDxBxegedabagacad #old one
 export LSCOLORS=GxFxCxDxBxegedabagaced
+
+# make less more friendly for non-text input files, see lesspipe(1)
+[ -x /usr/bin/lesspipe ] && eval "$(lesspipe)"
 
 # If possible, add tab completion for many more commands
 [ -f /etc/bash_completion ] && source /etc/bash_completion
