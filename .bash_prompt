@@ -4,7 +4,7 @@
 #
 # Modified for Mac OS X by
 # @corndogcomputer
-# 
+#
 # Customized by @_dhar
 ###########################################
 
@@ -23,24 +23,43 @@ green='\[\e[0;32m\]'
 #lightGreen='\[\e[1;32m\]'
 cyan='\[\e[0;36m\]'
 #lightCyan='\[\e[1;36m\]'
-#red='\[\e[0;31m\]'
+red='\[\e[0;31m\]'
 #lightRed='\[\e[1;31m\]'
 purple='\[\e[0;35m\]'
 #lightPurple='\[\e[1;35m\]'
 #brown='\[\e[0;33m\]'
-yellow='\[\e[1;33m\]'
+Byellow='\[\e[1;33m\]'
+yellow='\[\e[0;33m\]'
 white='\[\e[1;37m\]'
 
 cEnd='\[\e[m\]'
 
+
 # Prompt variable:
 
-PS1="\n$gray"'$fill \t\n'"$white('-_-) $cyan"'${debian_chroot:+($debian_chroot)}\u'"$white@$purple\h$white: $yellow\w$white \n$green\$$white "
+# PS1="\n$gray"'$fill \t\n'"$white('-_-) $cyan"'${debian_chroot:+($debian_chroot)}\u'"$white@$purple\h$white: $yellow\w$white \n$green\$$white "
+
+# GIT Bash prompt from http://mediadoneright.com/content/ultimate-git-ps1-bash-prompt
+PS1="\n$gray"'$fill \t\n'"$white('-_-) $cyan"'${debian_chroot:+($debian_chroot)}\u'"$white@$purple\h$white: $cEnd"'$(git branch &>/dev/null;\
+if [ $? -eq 0 ]; then \
+  echo "$(echo `git status` | grep "nothing to commit" > /dev/null 2>&1; \
+  if [ "$?" -eq "0" ]; then \
+    # @4 - Clean repository - nothing to commit
+    echo "'$green'"$(__git_ps1 " (%s)"); \
+  else \
+    # @5 - Changes to working tree
+    echo "'$red'"$(__git_ps1 " {%s}"); \
+  fi) '$Byellow'\w'$cEnd'\n'$green'\$'$white' "; \
+else \
+  # @2 - Prompt when not in GIT repo
+  echo " '$yellow'\w'$cEnd'\n'$green'\$'$white' "; \
+fi)'
 PS2="$green>$white "
 
 # Reset color for command output
 # (this one is invoked every time before a command is executed):
 trap 'echo -ne "\033[00m"' DEBUG
+
 
 function prompt_command {
 
