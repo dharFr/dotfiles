@@ -12,7 +12,7 @@
 
 	# View the current working tree status using the untracked mode
 	st = status -u
-	
+
 	# List commits in short form, with colors and branch/tag annotations
 	ls = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate
 
@@ -21,6 +21,10 @@
 
 	# List with no colors if you need to chain the out put with Unix pipes
 	lnc = log --pretty=format:"%h\\ %s\\ [%cn]"
+
+  # Show all commits on all branches that aren't pushed yet
+  # see : http://stackoverflow.com/questions/2016901/viewing-unpushed-git-commits
+  unpushed = log --branches --not --remotes --simplify-by-decoration --decorate --oneline
 
 [user]
 	name = Olivier Audard
@@ -33,7 +37,7 @@
 
 [rerere]
   enabled = true
-  
+
 [color]
 	branch = auto
 	diff = auto
