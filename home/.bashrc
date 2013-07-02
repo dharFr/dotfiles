@@ -1,3 +1,7 @@
+
+# If not running interactively, don't do anything
+[ -z "$PS1" ] && return
+
 export DOT_FILES="$HOME/.dotfiles"
 
 echo "bash init...."
