@@ -57,3 +57,8 @@ fi
 
 # This loads NVM
 [[ -s $HOME/.nvm/nvm.sh ]] && . $HOME/.nvm/nvm.sh
+
+if [ -f $DOT_FILES/.post_extra ]; then
+  source $DOT_FILES/.post_extra
+  echo "|- loaded $DOT_FILES/.post_extra"
+fi
