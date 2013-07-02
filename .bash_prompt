@@ -34,14 +34,14 @@ white='\[\e[1;37m\]'
 
 cEnd='\[\e[m\]'
 
-PROMPT_PREFIX="$white('-_-) "
+PROMPT_PREFIX="('-_-) "
 
 # Prompt variable:
 
 # PS1="\n$gray"'$fill \t\n'"$white('-_-) $cyan"'${debian_chroot:+($debian_chroot)}\u'"$white@$purple\h$white: $yellow\w$white \n$green\$$white "
 
 # GIT Bash prompt from http://mediadoneright.com/content/ultimate-git-ps1-bash-prompt
-PS1="\n$gray"'$fill \t\n'"$PROMPT_PREFIX$cyan"'${debian_chroot:+($debian_chroot)}\u'"$white@$purple\h$white: $cEnd"'$(git branch &>/dev/null;\
+PS1="\n$gray"'$fill \t\n'"$white"'$PROMPT_PREFIX'"$cyan"'${debian_chroot:+($debian_chroot)}\u'"$white@$purple\h$white: $cEnd"'$(git branch &>/dev/null;\
 if [ $? -eq 0 ]; then \
   echo "$(echo `git status` | grep "nothing to commit" > /dev/null 2>&1; \
   if [ "$?" -eq "0" ]; then \
