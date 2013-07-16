@@ -4,11 +4,11 @@
 
 	co = checkout
 	br = branch -v
-  ba = branch -va
-  cm = commit -v
+	ba = branch -va
+	cm = commit -v
 	ru = remote update
-  nlog = log --name-status --decorate
-  gr = log --pretty=oneline --abbrev-commit --decorate --graph
+	nlog = log --name-status --decorate
+	gr = log --pretty=oneline --abbrev-commit --decorate --graph
 
 	# View the current working tree status using the untracked mode
 	st = status -u
@@ -22,9 +22,9 @@
 	# List with no colors if you need to chain the out put with Unix pipes
 	lnc = log --pretty=format:"%h\\ %s\\ [%cn]"
 
-  # Show all commits on all branches that aren't pushed yet
-  # see : http://stackoverflow.com/questions/2016901/viewing-unpushed-git-commits
-  unpushed = log --branches --not --remotes --simplify-by-decoration --decorate --oneline
+	# Show all commits on all branches that aren't pushed yet
+	# see : http://stackoverflow.com/questions/2016901/viewing-unpushed-git-commits
+	unpushed = log --branches --not --remotes --simplify-by-decoration --decorate --oneline
 
 [user]
 	name = Olivier Audard
@@ -36,7 +36,7 @@
 	editor = vim
 
 [rerere]
-  enabled = true
+	enabled = true
 
 [color]
 	branch = auto
@@ -52,5 +52,5 @@
 	merge = refs/heads/master
 
 [merge]
-    tool = vimdiff
-    summary = true
+	tool = vimdiff
+	summary = true
