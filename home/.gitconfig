@@ -26,6 +26,9 @@
 	# see : http://stackoverflow.com/questions/2016901/viewing-unpushed-git-commits
 	unpushed = log --branches --not --remotes --simplify-by-decoration --decorate --oneline
 
+  # Share your local repo
+  share = "!git daemon --reuseaddr --verbose  --base-path=`git rev-parse --show-toplevel` --export-all `git rev-parse --show-toplevel`/.git"
+
 [user]
 	name = Olivier Audard
 	email = audard@gmail.com
