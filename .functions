@@ -10,6 +10,49 @@ function server {
   python -m SimpleHTTPServer "$port"
 }
 
+# see : https://gist.github.com/isaacs/579814#file-node-and-npm-in-30-seconds-sh
+function setup-nodejs {
+
+  local __NODE_INSTALL_DIR=$HOME/local
+  local __NODE_LATEST_DIR=$HOME/local/node-latest-install
+  
+  function goInstall {
+    if [ ! -d $__NODE_INSTALL_DIR ]; then 
+      mkdir $__NODE_INSTALL_DIR
+    fi
+    if [ -d $__NODE_LATEST_DIR ]; then 
+      rm -rf $__NODE_LATEST_DIR
+    fi
+    mkdir $__NODE_LATEST_DIR
+    local _pwd=`pwd`
+    cd $__NODE_LATEST_DIR
+    curl http://nodejs.org/dist/node-latest.tar.gz | tar xz --strip-components=1
+    ./configure --prefix=$__NODE_INSTALL_DIR
+    make install # ok, fine, this step probably takes more than 30 seconds...
+    curl https://npmjs.org/install.sh | sh
+    cd $_pwd
+    rm -rf $__NODE_LATEST_DIR
+  }
+
+  if [ "$1" == "--force" -o "$1" == "-f" ]; then
+    goInstall
+  else
+    echo "This will download and install the latest versions of node and npm to $__NODE_INSTALL_DIR folder."
+    echo ""
+    echo "Before doing this, maybe you should check the following :"
+    echo " - Uninstall Mac OS node.js distrib : http://spiiice.net/uninstalling-node-js-npm-on-mac-os/"
+    echo " - Check for another method: https://gist.github.com/isaacs/579814"
+    echo ""
+    echo "Anyway, if you know what you're doing, answer the following question." 
+    read -p "Are you sure? (y/n) " -n 1
+    echo
+    if [[ $REPLY =~ ^[Yy]$ ]]; then
+      goInstall
+    fi
+  fi
+  unset goInstall
+}
+
 # grailsenv - Dynamically switch your GRAILS_HOME 
 # grailsenv [VERSION]
 # Try to switch your GRAILS_HOME property to 'grails-VERSION' 

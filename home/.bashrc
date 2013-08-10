@@ -42,6 +42,12 @@ export LSCOLORS=GxFxCxDxBxegedabagaced
 # If possible, add tab completion for many more commands
 [ -f /etc/bash_completion ] && source /etc/bash_completion
 
+# Node Setup
+export PATH=$HOME/local/bin:$PATH
+if [ ! -x $HOME/local/bin/node ]; then 
+  echo "node isn't installed in '$HOME/local/bin/node'. Check your install or run 'setup-nodejs' to install it properly"
+fi
+
 # ruby conf I guess?
 if [ -d $HOME/.rbenv/bin ]; then
 	export PATH="$HOME/.rbenv/bin:$PATH"
