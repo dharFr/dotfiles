@@ -13,59 +13,80 @@ function server {
 # see : https://gist.github.com/isaacs/579814#file-node-and-npm-in-30-seconds-sh
 function setup-nodejs {
 
+
   local __NODE_INSTALL_DIR=$HOME/local
   local __NODE_LATEST_DIR=$HOME/local/node-latest-install
-  
-  function goInstall {
-    if [ ! -d $__NODE_INSTALL_DIR ]; then 
-      mkdir $__NODE_INSTALL_DIR
-    fi
-    if [ -d $__NODE_LATEST_DIR ]; then 
-      rm -rf $__NODE_LATEST_DIR
-    fi
-    mkdir $__NODE_LATEST_DIR
-    local _pwd=`pwd`
-    cd $__NODE_LATEST_DIR
-    curl http://nodejs.org/dist/node-latest.tar.gz | tar xz --strip-components=1
-    ./configure --prefix=$__NODE_INSTALL_DIR
-    make install # ok, fine, this step probably takes more than 30 seconds...
-    curl https://npmjs.org/install.sh | sh
-    cd $_pwd
-    rm -rf $__NODE_LATEST_DIR
-  }
 
-  if [ "$1" == "--force" -o "$1" == "-f" ]; then
-    goInstall
-  else
+  function buildLastest {
     echo "This will download and install the latest versions of node and npm to $__NODE_INSTALL_DIR folder."
     echo ""
     echo "Before doing this, maybe you should check the following :"
     echo " - Uninstall Mac OS node.js distrib : http://spiiice.net/uninstalling-node-js-npm-on-mac-os/"
     echo " - Check for another method: https://gist.github.com/isaacs/579814"
     echo ""
-    echo "Anyway, if you know what you're doing, answer the following question." 
+    echo "Anyway, if you know what you're doing, answer the following question."
     read -p "Are you sure? (y/n) " -n 1
     echo
     if [[ $REPLY =~ ^[Yy]$ ]]; then
-      goInstall
+      if [ ! -d $__NODE_INSTALL_DIR ]; then
+        mkdir $__NODE_INSTALL_DIR
+      fi
+      if [ -d $__NODE_LATEST_DIR ]; then
+        rm -rf $__NODE_LATEST_DIR
+      fi
+      mkdir $__NODE_LATEST_DIR
+      local _pwd=`pwd`
+      cd $__NODE_LATEST_DIR
+      curl http://nodejs.org/dist/node-latest.tar.gz | tar xz --strip-components=1
+      ./configure --prefix=$__NODE_INSTALL_DIR
+      make install # ok, fine, this step probably takes more than 30 seconds...
+      curl https://npmjs.org/install.sh | sh
+      cd $_pwd
+      rm -rf $__NODE_LATEST_DIR
     fi
-  fi
-  unset goInstall
+  }
+
+  function nvmInstall {
+    echo "Installing nvm..."
+    curl https://raw.github.com/creationix/nvm/master/install.sh | sh
+  }
+
+  while :
+  do
+    echo "Want to install Node.js?"
+    echo ""
+    echo "* [a] Download latest source and build to $__NODE_INSTALL_DIR *"
+    echo "* [b] Download and install nvm from https://github.com/creationix/nvm*"
+    echo "* [0] Get me out of there... *"
+    echo ""
+    echo -n "Enter your menu choice [a-0]: "
+    read yourch
+    case $yourch in
+    a) buildLastest ;;
+    b) nvmInstall ;;
+    0) break;;
+    *) echo "Oopps!!! Please select choice 0, a or b";
+    echo "Press Enter to continue. . ." ; read ;;
+    esac
+  done
+
+  unset buildLastest
+  unset nvmInstall
 }
 
-# grailsenv - Dynamically switch your GRAILS_HOME 
+# grailsenv - Dynamically switch your GRAILS_HOME
 # grailsenv [VERSION]
-# Try to switch your GRAILS_HOME property to 'grails-VERSION' 
+# Try to switch your GRAILS_HOME property to 'grails-VERSION'
 # according to the current value
-# 
-# if a 'grails-VERSION' directory exists in the same folder, 
+#
+# if a 'grails-VERSION' directory exists in the same folder,
 # exports a new GRAILS_HOME and add it to the PATH
-# 
+#
 # Without parameters, displays the current GRAILS_HOME value
 function grailsenv {
 
 
-    # without arguments, log available grails folders 
+    # without arguments, log available grails folders
     # or check for application.properties file
     if [ -v $1 ]; then
         if [ -f 'application.properties' ]; then
@@ -106,7 +127,7 @@ function grailsrun {
     echo "> grailsrun -p 8081"
     echo "will run => grails -Dserver.port=8081 run-app "
   }
-  
+
   while [ "$1" != "" ]; do
     case $1 in
       -p | --port ) shift
@@ -119,24 +140,24 @@ function grailsrun {
     esac
     shift
   done
-   
+
   if [ $gr_host = 1 ]; then
     gr_ip="`ifconfig eth0 | grep inet\ addr:| awk {'print $2'} | sed s/.*://`"
   fi
-   
+
   echo "| Launching: grails -Dserver.host=$gr_ip -Dserver.port=$gr_port run-app"
   echo ""
-  grails -Dserver.host=$gr_ip -Dserver.port=$gr_port run-app 
+  grails -Dserver.host=$gr_ip -Dserver.port=$gr_port run-app
 }
 
 
 
 # Apply svn sub-command to every newly created file (marked with ? in 'svn status')
-# Example : 
-# 
+# Example :
+#
 # Add every new file
 # > svn-allnew add
-# 
+#
 # Still works with extra parameters
 # > svn-allnew add --force
 function svn-allnew {
@@ -144,15 +165,15 @@ function svn-allnew {
     echo "Please add an svn-subcommand as a parameter (try 'svn help')"
   else
     svn st | grep '^\?' | awk '{print $2}' | xargs svn $*
-  fi 
+  fi
 }
 
 # Apply svn sub-command to every deleted file (marked with ! in 'svn status')
-# Example : 
-# 
+# Example :
+#
 # Delete every missing file from repo
 # > svn-alldeleted delete
-# 
+#
 # Still works with extra parameters
 # > svn-alldeleted delete --force
 function svn-alldeleted {
@@ -160,5 +181,5 @@ function svn-alldeleted {
     echo "Please add an svn-subcommand as a parameter (try 'svn help')"
   else
     svn st | grep '^!' | awk '{print $2}' | xargs svn $*
-  fi 
+  fi
 }

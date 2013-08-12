@@ -44,8 +44,10 @@ export LSCOLORS=GxFxCxDxBxegedabagaced
 
 # Node Setup
 export PATH=$HOME/local/bin:$PATH
-if [ ! -x $HOME/local/bin/node ]; then 
-  echo "node isn't installed in '$HOME/local/bin/node'. Check your install or run 'setup-nodejs' to install it properly"
+if [ ! -x $HOME/local/bin/node ]; then
+  if [ ! -x $HOME/.nvm/nvm.sh ]; then
+    echo "node isn't installed in '$HOME/local/bin/node'. Check your install or run 'setup-nodejs' to install it properly"
+  fi
 fi
 
 # ruby conf I guess?
