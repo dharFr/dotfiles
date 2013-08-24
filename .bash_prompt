@@ -34,27 +34,37 @@ white='\[\e[1;37m\]'
 
 cEnd='\[\e[m\]'
 
-PROMPT_PREFIX="('-_-) "
+PROMPT_PREFIX="⚡  "
 
 # Prompt variable:
 
 # PS1="\n$gray"'$fill \t\n'"$white('-_-) $cyan"'${debian_chroot:+($debian_chroot)}\u'"$white@$purple\h$white: $yellow\w$white \n$green\$$white "
 
-# GIT Bash prompt from http://mediadoneright.com/content/ultimate-git-ps1-bash-prompt
-PS1="\n$gray"'$fill \t\n'"$white"'$PROMPT_PREFIX'"$cyan"'${debian_chroot:+($debian_chroot)}\u'"$white@$purple\h$white: $cEnd"'$(git branch &>/dev/null;\
+PS1="\n$gray"'$fill \t\n'                           # first line filled with dashes and current time on the right
+# PS1=$PS1$green"┌┤"                                 # ┌─
+PS1=$PS1$white$PROMPT_PREFIX                        # [white] prompt prefix (can be overwrited depending on the env)
+PS1=$PS1$cyan'${debian_chroot:+($debian_chroot)}\u' # [cyan]  user
+PS1=$PS1$white@$purple'\h'$white': '$cEnd           # [white] @ [purple] host [white] : [no-color]
+
+# GIT Bash prompt. See http://mediadoneright.com/content/ultimate-git-ps1-bash-prompt
+# [red|green] branch [yellow|Byellow] (depends on we're on a git repo or not)
+PS1=$PS1'$(git branch &>/dev/null;\
 if [ $? -eq 0 ]; then \
   echo "$(echo `git status` | grep "nothing to commit" > /dev/null 2>&1; \
   if [ "$?" -eq "0" ]; then \
     # @4 - Clean repository - nothing to commit
-    echo "'$green'"$(__git_ps1 " (%s)"); \
+    echo "'$green'"$(__git_ps1 "(%s)"); \
   else \
     # @5 - Changes to working tree
-    echo "'$red'"$(__git_ps1 " {%s}"); \
-  fi) '$Byellow'\w'$cEnd'\n'$green'\$'$white' "; \
+    echo "'$red'"$(__git_ps1 "{%s}"); \
+  fi) '$Byellow'"; \
 else \
   # @2 - Prompt when not in GIT repo
-  echo " '$yellow'\w'$cEnd'\n'$green'\$'$white' "; \
+  echo "'$yellow'"; \
 fi)'
+PS1=$PS1'\w'$cEnd'\n'                               # current dir [no-color] new line
+PS1=$PS1$green"↳  "$cEnd                         # [green] └─▻ [no-color]
+
 PS2="$green>$white "
 
 # Reset color for command output
