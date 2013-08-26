@@ -34,15 +34,14 @@ white='\[\e[1;37m\]'
 
 cEnd='\[\e[m\]'
 
-PROMPT_PREFIX="⚡  "
+PROMPT_PREFIX="⚡ "
 
 # Prompt variable:
 
 # PS1="\n$gray"'$fill \t\n'"$white('-_-) $cyan"'${debian_chroot:+($debian_chroot)}\u'"$white@$purple\h$white: $yellow\w$white \n$green\$$white "
-
 PS1="\n$gray"'$fill \t\n'                           # first line filled with dashes and current time on the right
-# PS1=$PS1$green"┌┤"                                 # ┌─
-PS1=$PS1$white$PROMPT_PREFIX                        # [white] prompt prefix (can be overwrited depending on the env)
+# PS1=$PS1$green"┌┤"                                # ┌─
+PS1=$PS1$white'$(echo "$PROMPT_PREFIX")'              # [white] prompt prefix (can be overwrited depending on the env)
 PS1=$PS1$cyan'${debian_chroot:+($debian_chroot)}\u' # [cyan]  user
 PS1=$PS1$white@$purple'\h'$white': '$cEnd           # [white] @ [purple] host [white] : [no-color]
 
@@ -63,7 +62,7 @@ else \
   echo "'$yellow'"; \
 fi)'
 PS1=$PS1'\w'$cEnd'\n'                               # current dir [no-color] new line
-PS1=$PS1$green"↳  "$cEnd                         # [green] └─▻ [no-color]
+PS1=$PS1$green"↳  "$cEnd                            # [green] └─▻ [no-color]
 
 PS2="$green>$white "
 
