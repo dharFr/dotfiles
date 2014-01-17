@@ -1,6 +1,7 @@
 # List all files colorized in long format
 alias ll="ls -Gl"
 alias lla="ls -Gla"
+alias npmeu="npm --registry http://registry.npmjs.eu/"
 
 # Always use color output for `ls`
 if [[ "$OSTYPE" =~ ^darwin ]]; then
