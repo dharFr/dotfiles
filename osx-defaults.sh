@@ -499,6 +499,22 @@ defaults write com.apple.TimeMachine DoNotOfferNewDisksForBackup -bool true
 # Disable local Time Machine backups
 hash tmutil &> /dev/null && sudo tmutil disablelocal
 
+# Setup Time Capsule exclusion Folders
+# reminder : use the following command to check what's actually excluded from backups 
+# sudo mdfind "com_apple_backup_excludeItem = 'com.apple.backupd'"
+tmutil addexclusion -p "/.Trashes"
+tmutil addexclusion -p "/Library/Application\ Support/"
+tmutil addexclusion -p "/Library/Caches"
+tmutil addexclusion -p "/System/Library/Caches"
+tmutil addexclusion -p "/usr/local/Cellar"
+tmutil addexclusion -p "${HOME}/Public/Drop\ Box"
+tmutil addexclusion -p "${HOME}/Library/Caches"
+tmutil addexclusion -p "${HOME}/Library/Application\ Support/Steam/SteamApps"
+tmutil addexclusion -p "${HOME}/Library/Developer"
+tmutil addexclusion -p "${HOME}/Dropbox"
+tmutil addexclusion -p "${HOME}/Downloads"
+tmutil addexclusion -p "${HOME}/Movies"
+tmutil addexclusion -p "${HOME}/.Trash"
 
 ###############################################################################
 # Activity Monitor #
