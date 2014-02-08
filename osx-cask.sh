@@ -50,7 +50,7 @@ function main() {
 	# -- Homebrew ------------------------------------------------------------------
 	if [ $(cmd_exists "brew") -eq 0 ]; then
 		print_info "installing homebrew..."
-		ruby -e "$(curl -fsSkL raw.github.com/mxcl/homebrew/go)"
+		ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)"
 		print_result $? "homebrew"
 		sleep 10
 	else
