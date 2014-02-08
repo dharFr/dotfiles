@@ -109,7 +109,7 @@ function main() {
 	# dev
 	brew cask install charles
 	brew cask install iterm2
-	brew cask install macvim
+	#brew cask install macvim
 	brew cask install sublime-text
 	brew cask install virtualbox
 
