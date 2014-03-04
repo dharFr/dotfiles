@@ -50,21 +50,32 @@ if [ ! -x $HOME/local/bin/node ]; then
   fi
 fi
 
+# This loads NVM
+if [ -s $HOME/.nvm/nvm.sh ]; then
+  . $HOME/.nvm/nvm.sh
+  export NODE_PATH="$NVM_BIN/../lib/node_modules:$NODE_PATH"
+elif [ -d $HOME/local/node ]; then
+  export NODE_PATH="$HOME/local/lib/node_modules:$NODE_PATH"
+elif [ -d /usr/local/lib/node ]; then
+  export NODE_PATH="$HOME/local/lib/node_modules:$NODE_PATH"
+else
+  echo "Couldn't find global node_modules folder. NODE_PATH env var isn't set"
+fi
+
+
 # ruby conf I guess?
 if [ -d $HOME/.rbenv/bin ]; then
-	export PATH="$HOME/.rbenv/bin:$PATH"
-	eval "$(rbenv init -)"
+  export PATH="$HOME/.rbenv/bin:$PATH"
+  eval "$(rbenv init -)"
 fi
 if [ -d $HOME/.rbenv/shims ]; then
-	export PATH="$HOME/.rbenv/shims:$PATH"
-	eval "$(rbenv init -)"
+  export PATH="$HOME/.rbenv/shims:$PATH"
+  eval "$(rbenv init -)"
 fi
 
 # GVM setup
 [[ -s "$HOME/.gvm/bin/gvm-init.sh" && -z $(which gvm-init.sh | grep '/gvm-init.sh') ]] && source "$HOME/.gvm/bin/gvm-init.sh"
 
-# This loads NVM
-[[ -s $HOME/.nvm/nvm.sh ]] && . $HOME/.nvm/nvm.sh
 
 if [ -f $DOT_FILES/.post_extra ]; then
   source $DOT_FILES/.post_extra
