@@ -42,6 +42,9 @@ export LSCOLORS=GxFxCxDxBxegedabagaced
 # If possible, add tab completion for many more commands
 [ -f /etc/bash_completion ] && source /etc/bash_completion
 
+# brew doctor asked for this one
+export PATH=/usr/local/bin:/usr/local/sbin:$PATH
+
 # Node Setup
 export PATH=$HOME/local/bin:$PATH
 if [ ! -x $HOME/local/bin/node ]; then
