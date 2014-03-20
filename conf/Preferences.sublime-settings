@@ -1,23 +1,35 @@
 {
 	"bold_folder_labels": true,
+	"caret_style": "phase",
 	"color_scheme": "Packages/Color Scheme - Default/Monokai.tmTheme",
+	"detect_slow_plugins": false,
 	"dictionary": "Packages/Language - French/fr-moderne.dic",
+	"draw_minimap_border": true,
+	"fade_fold_buttons": false,
 	"find_selected_text": true,
 	"font_options":
 	[
 		"subpixel_antialias"
 	],
 	"font_size": 14.0,
+	"gutter": true,
 	"highlight_line": true,
 	"highlight_modified_tabs": true,
 	"ignored_packages":
 	[
-		"Vintage"
+		"Vintage",
+		"GitGutter"
 	],
-	"line_padding_bottom": 5,
+	"line_padding_bottom": 1,
+	"line_padding_top": 1,
 	"overlay_scroll_bars": "enabled",
+	"rulers":
+	[
+		80,
+		120
+	],
+	"scroll_past_end": true,
 	"scroll_speed": 5.0,
-	"shift_tab_unindent": true,
 	"soda_classic_tabs": true,
 	"tab_size": 2,
 	"theme": "Soda Dark.sublime-theme",
