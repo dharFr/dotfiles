@@ -48,7 +48,7 @@ export PATH=/usr/local/bin:/usr/local/sbin:$PATH
 # Node Setup
 export PATH=$HOME/local/bin:$PATH
 if [ ! -x $HOME/local/bin/node ]; then
-  if [ ! -x $HOME/.nvm/nvm.sh ]; then
+  if [ ! -s $HOME/.nvm/nvm.sh ]; then
     echo "node isn't installed in '$HOME/local/bin/node'. Check your install or run 'setup-nodejs' to install it properly"
   fi
 fi
