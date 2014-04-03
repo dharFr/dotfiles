@@ -199,3 +199,27 @@ function svn-alldeleted {
 function tre() {
   tree -aC -I '.git|node_modules|bower_components|as3corelib|.sass-cache' --dirsfirst "$@" | less -FRNX
 }
+
+# Whiteboard Picture Cleaner - Shell one-liner/script to clean up and beautify photos of whiteboards!
+# See : https://gist.github.com/lelandbatey/8677901
+function whiteboardConvert {
+
+  local __output
+
+  if [ -x convert ]; then
+    echo "You'll need imageMagick to run this one ^^"
+    echo "> brew install imagemagick"
+  elif [ -z $1 ]; then
+    echo "Need an input file as 1st parameter"
+  else
+    if [ -z $2 ]; then
+      __output="whiteboardConvert.jpg"
+    else
+      __output=$2
+    fi
+    echo "Cleaning Whiteboard Picture:"
+    echo "$1 => $__output"
+    convert $1 -morphology Convolve DoG:15,100,0 -negate -normalize -blur 0x1 -channel RBG -level 60%,91%,0.1 $__output
+    echo done
+  fi
+}
