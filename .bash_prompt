@@ -63,6 +63,7 @@ else \
 fi)'
 PS1=$PS1'\w'$cEnd'\n'                               # current dir [no-color] new line
 PS1=$PS1$green"↳  "$cEnd                            # [green] └─▻ [no-color]
+PS1=$PS1$nc
 
 PS2="$green>$white "
 
