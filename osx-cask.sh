@@ -93,6 +93,7 @@ function main() {
 	brew install brew-cask
 
 	# OSX apps
+	brew cask install onepassword
 	brew cask install dropbox
 	brew cask install firefox
 	brew cask install google-chrome
