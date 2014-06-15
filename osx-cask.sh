@@ -86,6 +86,7 @@ function main() {
 	brew install tree
 	brew install phantomjs
 	brew install macvim --override-system-vim
+    brew install editorconfig
 	# brew install z
 
 	# Install native apps
