@@ -87,6 +87,7 @@ function main() {
 	brew install phantomjs
 	brew install macvim --override-system-vim
     brew install editorconfig
+    brew install markdown
 	# brew install z
 
 	# Install native apps
