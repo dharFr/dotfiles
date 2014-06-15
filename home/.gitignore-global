@@ -28,6 +28,12 @@ node_modules
 #################
 *.sublime-*
 
+# Vim files #
+#############
+*~
+*.swp
+*.swo
+
 # Logs and databases #
 ######################
 *.log

@@ -4,19 +4,23 @@
 
 export DOT_FILES="$HOME/.dotfiles"
 
-echo "bash init...."
+# Don't display startup logs from Vim shell 
+alias _echo="[ -z \"$MYVIMRC\" ] && echo" 
+
+_echo "bash init...."
 ## Load .bash_prompt, .functions and .extra from $DOT_FILES
 # .extra can be used for settings you don’t want to commit
 for file in $DOT_FILES/.{bash_prompt,exports,aliases,functions,extra}; do
   [ -r "$file" ] && source "$file"
-  echo "|- loaded $file"
+  _echo "|- loaded $file"
 done
 
 for file in $DOT_FILES/utils/**/*.sh; do
   . $file
-  echo "|- loaded $file"
+  _echo "|- loaded $file"
 done
 unset file
+unalias _echo
 
 # Append to the Bash history file, rather than overwriting it
 shopt -s histappend
@@ -35,6 +39,9 @@ export LANG="fr_FR.UTF-8"
 export CLICOLOR=1
 #export LSCOLORS=ExFxCxDxBxegedabagacad #old one
 export LSCOLORS=GxFxCxDxBxegedabagaced
+
+# Enable vi key bindings in bash
+set -o vi
 
 # make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(lesspipe)"

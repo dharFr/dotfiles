@@ -10,7 +10,7 @@ cd "$(dirname "$0")"
 git pull
 function doIt() {
   
-  rsync --exclude ".git/" --exclude ".DS_Store" --exclude "bootstrap.sh" --exclude "README.md" --exclude "home" -av . ~/"$DOT_FILES_DIR"
+  rsync --exclude ".git/" --exclude ".DS_Store" --exclude "bootstrap.sh" --exclude "README.md" --exclude "home" --exclude '.*~' --exclude '*.swp' -av . ~/"$DOT_FILES_DIR"
   # everything under ./home dir goes to ~ 
   cd home && rsync -av . ~
 }
