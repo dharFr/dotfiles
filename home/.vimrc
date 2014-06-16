@@ -181,6 +181,7 @@ autocmd vimenter * if !argc() | NERDTree | endif
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 
 " vim-markdown configuration
+set encoding=utf-8
 let g:vim_markdown_initial_foldlevel=4
 let g:airline_powerline_fonts=1
 let g:airline#extensions#tabline#enabled=1
