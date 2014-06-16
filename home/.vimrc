@@ -26,6 +26,7 @@ Plugin 'inside/vim-search-pulse'
 Plugin 'tpope/vim-fugitive'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'bling/vim-airline'
+Plugin 'kien/ctrlp.vim'
 
 " dev tools
 Plugin 'editorconfig/editorconfig-vim'
@@ -181,12 +182,18 @@ autocmd vimenter * if !argc() | NERDTree | endif
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 
 " vim-markdown configuration
-set encoding=utf-8
 let g:vim_markdown_initial_foldlevel=4
+
+" vim-airline configuration
+set encoding=utf-8
 let g:airline_powerline_fonts=1
 let g:airline#extensions#tabline#enabled=1
 let g:airline_theme='simple'
 set laststatus=2
+
+" vim-ctrlp configuration
+let g:ctrlp_working_path_mode = 'ra'
+let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
 
 " Local config
 if filereadable($HOME . "/.vimrc.local")
