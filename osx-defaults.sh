@@ -489,6 +489,9 @@ open "conf/Solarized Dark.itermcolors"
 # Don’t display the annoying prompt when quitting iTerm
 defaults write com.googlecode.iterm2 PromptOnQuit -bool false
 
+# Disable iTerm "find Cursor" shortcut (conflicts with Vim custom shortcuts)
+defaults write com.googlecode.iterm2 NSUserKeyEquivalents -dict-add "Find Cursor" nil
+
 ###############################################################################
 # Time Machine #
 ###############################################################################
