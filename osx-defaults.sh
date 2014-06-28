@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Mostly stolen from https://github.com/mathiasbynens/dotfiles/blob/master/.osx 
+# Mostly stolen from https://github.com/mathiasbynens/dotfiles/blob/master/.osx
 
 # Ask for the administrator password upfront
 sudo -v
@@ -135,6 +135,13 @@ systemsetup -settimezone "Europe/Paris" > /dev/null
 # Stop iTunes from responding to the keyboard media keys
 launchctl unload -w /System/Library/LaunchAgents/com.apple.rcd.plist 2> /dev/null
 
+# rebind 'Mission Controls' keyboard shortcut to F3
+defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 32 '{ enabled = 1; value = { parameters = ( 65535, 99, 0 ); type = standard; }; };'
+defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 34 '{ enabled = 1; value = { parameters = ( 65535, 99, 131072 ); type = standard; }; };'
+
+# rebind 'All application windows' keyboard shortcut to F4
+defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 33 '{ enabled = 1; value = { parameters = (65535, 118, 0 ); type = standard; }; };'
+defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 35 '{ enabled = 1; value = { parameters = (65535, 118, 131072 ); type = standard; }; };'
 ###############################################################################
 # Screen #
 ###############################################################################
@@ -503,7 +510,7 @@ defaults write com.apple.TimeMachine DoNotOfferNewDisksForBackup -bool true
 hash tmutil &> /dev/null && sudo tmutil disablelocal
 
 # Setup Time Capsule exclusion Folders
-# reminder : use the following command to check what's actually excluded from backups 
+# reminder : use the following command to check what's actually excluded from backups
 # sudo mdfind "com_apple_backup_excludeItem = 'com.apple.backupd'"
 tmutil addexclusion -p "/.Trashes"
 tmutil addexclusion -p "/Library/Application\ Support/"
