@@ -18,69 +18,6 @@ function server {
   python -m SimpleHTTPServer "$port"
 }
 
-# see : https://gist.github.com/isaacs/579814#file-node-and-npm-in-30-seconds-sh
-function setup-nodejs {
-
-
-  local __NODE_INSTALL_DIR=$HOME/local
-  local __NODE_LATEST_DIR=$HOME/local/node-latest-install
-
-  function buildLastest {
-    echo "This will download and install the latest versions of node and npm to $__NODE_INSTALL_DIR folder."
-    echo ""
-    echo "Before doing this, maybe you should check the following :"
-    echo " - Uninstall Mac OS node.js distrib : http://spiiice.net/uninstalling-node-js-npm-on-mac-os/"
-    echo " - Check for another method: https://gist.github.com/isaacs/579814"
-    echo ""
-    echo "Anyway, if you know what you're doing, answer the following question."
-    read -p "Are you sure? (y/n) " -n 1
-    echo
-    if [[ $REPLY =~ ^[Yy]$ ]]; then
-      if [ ! -d $__NODE_INSTALL_DIR ]; then
-        mkdir $__NODE_INSTALL_DIR
-      fi
-      if [ -d $__NODE_LATEST_DIR ]; then
-        rm -rf $__NODE_LATEST_DIR
-      fi
-      mkdir $__NODE_LATEST_DIR
-      local _pwd=`pwd`
-      cd $__NODE_LATEST_DIR
-      curl http://nodejs.org/dist/node-latest.tar.gz | tar xz --strip-components=1
-      ./configure --prefix=$__NODE_INSTALL_DIR
-      make install # ok, fine, this step probably takes more than 30 seconds...
-      curl https://npmjs.org/install.sh | sh
-      cd $_pwd
-      rm -rf $__NODE_LATEST_DIR
-    fi
-  }
-
-  function nvmInstall {
-    echo "Installing nvm..."
-    curl https://raw.github.com/creationix/nvm/master/install.sh | sh
-  }
-
-  while :
-  do
-    echo "Want to install Node.js?"
-    echo ""
-    echo "* [a] Download latest source and build to $__NODE_INSTALL_DIR *"
-    echo "* [b] Download and install nvm from https://github.com/creationix/nvm*"
-    echo "* [0] Get me out of there... *"
-    echo ""
-    echo -n "Enter your menu choice [a-0]: "
-    read yourch
-    case $yourch in
-    a) buildLastest ;;
-    b) nvmInstall ;;
-    0) break;;
-    *) echo "Oopps!!! Please select choice 0, a or b";
-    echo "Press Enter to continue. . ." ; read ;;
-    esac
-  done
-
-  unset buildLastest
-  unset nvmInstall
-}
 
 # grailsenv - Dynamically switch your GRAILS_HOME
 # grailsenv [VERSION]

@@ -86,9 +86,10 @@ function main() {
 	brew install tree
 	brew install phantomjs
 	brew install macvim --override-system-vim
-    brew install editorconfig
-    brew install markdown
-	# brew install z
+  brew install editorconfig
+  brew install markdown
+  brew install nvm
+	# brew install z # perfer to install z from utils folder for it to wotk on unix
 
 	# Install native apps
 	brew tap phinze/homebrew-cask
@@ -129,6 +130,23 @@ function main() {
 
 	# Remove outdated versions from the cellar
 	brew cleanup
+
+	# install lastest node.js
+	nvm install 0.11
+
+	# install usefull global packages
+	npm install -g bower
+	npm install -g grunt-cli
+	npm install -g gulp
+	npm install -g coffee-script
+	npm install -g csslint
+	npm install -g jshint
+	npm install -g jsonlint
+	npm install -g jsxhint
+	npm install -g react-tools
+	npm install -g yo
+	npm install -g generator-gulp-webapp
+	npm install -g generator-mocha
 }
 
 main

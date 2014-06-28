@@ -4,8 +4,8 @@
 
 export DOT_FILES="$HOME/.dotfiles"
 
-# Don't display startup logs from Vim shell 
-alias _echo="[ -z \"$MYVIMRC\" ] && echo" 
+# Don't display startup logs from Vim shell
+alias _echo="[ -z \"$MYVIMRC\" ] && echo"
 
 _echo "bash init...."
 ## Load .bash_prompt, .functions and .extra from $DOT_FILES
@@ -52,24 +52,13 @@ set -o vi
 # brew doctor asked for this one
 export PATH=/usr/local/bin:/usr/local/sbin:$PATH
 
-# Node Setup
-export PATH=$HOME/local/bin:$PATH
-if [ ! -x $HOME/local/bin/node ]; then
-  if [ ! -s $HOME/.nvm/nvm.sh ]; then
-    echo "node isn't installed in '$HOME/local/bin/node'. Check your install or run 'setup-nodejs' to install it properly"
-  fi
-fi
-
 # This loads NVM
-if [ -s $HOME/.nvm/nvm.sh ]; then
-  . $HOME/.nvm/nvm.sh
-  export NODE_PATH="$NVM_BIN/../lib/node_modules:$NODE_PATH"
-elif [ -d $HOME/local/node ]; then
-  export NODE_PATH="$HOME/local/lib/node_modules:$NODE_PATH"
-elif [ -d /usr/local/lib/node ]; then
-  export NODE_PATH="$HOME/local/lib/node_modules:$NODE_PATH"
+if [ -s $(brew --prefix nvm)/nvm.sh ]; then
+  source $(brew --prefix nvm)/nvm.sh
+  export NVM_DIR=~/.nvm
+  nvm use 0.11
 else
-  echo "Couldn't find global node_modules folder. NODE_PATH env var isn't set"
+  echo "Couldn't find nvm.sh folder. Run : > brew install nvm"
 fi
 
 
