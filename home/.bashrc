@@ -57,6 +57,19 @@ if [ -s $(brew --prefix nvm)/nvm.sh ]; then
   source $(brew --prefix nvm)/nvm.sh
   export NVM_DIR=~/.nvm
   nvm use 0.11
+
+  # Create symlink to nvm current version
+  # Should be removed after https://github.com/creationix/nvm/pull/447 merged
+  if [ ! -f ~/.nvm/current ]; then
+    ln -s $NVM_DIR/$(nvm current) $NVM_DIR/current
+  fi
+
+  # Create symlink to current node in /usr/bin/node
+  # Useful for Sublime Text to find node
+  if [ ! -s /usr/bin/node ]; then
+    echo "Creating symlink to node in /usr/bin/node (password required)..."
+    sudo ln -s $NVM_DIR/current/bin/node /usr/bin/node
+  fi
 else
   echo "Couldn't find nvm.sh folder. Run : > brew install nvm"
 fi
