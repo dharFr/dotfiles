@@ -141,6 +141,7 @@ function main() {
 	npm install -g coffee-script
 	npm install -g csslint
 	npm install -g jshint
+	npm install -g coffeelint
 	npm install -g jsonlint
 	npm install -g jsxhint
 	npm install -g react-tools
