@@ -172,9 +172,9 @@ set nofoldenable        "dont fold by default
 set foldlevel=1         "this is just what i use
 
 " In many terminal emulators the mouse works just fine, thus enable it.
-if has('mouse')
-    set mouse=a
-endif
+"if has('mouse')
+"    set mouse=a
+"endif
 
 " Switch syntax highlighting on, when the terminal has colors
 " Also switch on highlighting the last used search pattern.
