@@ -74,6 +74,9 @@ else
   echo "Couldn't find nvm.sh folder. Run : > brew install nvm"
 fi
 
+if [ -d $(brew --prefix hub) ]; then
+    eval "$(hub alias -s)"
+fi
 
 # ruby conf I guess?
 if [ -d $HOME/.rbenv/bin ]; then
