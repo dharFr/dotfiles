@@ -56,11 +56,11 @@ export PATH=/usr/local/bin:/usr/local/sbin:$PATH
 if [ -s $(brew --prefix nvm)/nvm.sh ]; then
   source $(brew --prefix nvm)/nvm.sh
   export NVM_DIR=~/.nvm
-  nvm use 0.11
+  nvm use 0.10
 
   # Create symlink to nvm current version
   # Should be removed after https://github.com/creationix/nvm/pull/447 merged
-  if [ ! -f ~/.nvm/current ]; then
+  if [ ! -s ~/.nvm/current ]; then
     ln -s $NVM_DIR/$(nvm current) $NVM_DIR/current
   fi
 
