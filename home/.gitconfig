@@ -29,6 +29,10 @@
   # Share your local repo
   share = "!git daemon --reuseaddr --verbose  --base-path=`git rev-parse --show-toplevel` --export-all `git rev-parse --show-toplevel`/.git"
 
+  # DM Player specific, to run with the appropriate git `prepare-commit-msg` hook.
+  cmhtml  = "!export PROJECT_NAME=HTML5 && git cm"
+  cmflash = "!export PROJECT_NAME=FLASH && git cm"
+
 [user]
 	name = Olivier Audard
 	email = audard@gmail.com
