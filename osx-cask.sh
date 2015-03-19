@@ -86,10 +86,10 @@ function main() {
 	brew install tree
 	brew install phantomjs
 	brew install macvim --override-system-vim
-    brew install editorconfig
-    brew install markdown
-    brew install nvm
-    brew install --HEAD hub
+	brew install editorconfig
+	brew install markdown
+	brew install nvm
+	brew install --HEAD hub
 	# brew install z # perfer to install z from utils folder for it to wotk on unix
 
 	# Install native apps
