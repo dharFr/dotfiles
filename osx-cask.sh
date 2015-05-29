@@ -98,6 +98,7 @@ function main() {
 
 	# OSX apps
 	brew cask install onepassword
+	brew cask install gpgtools
 	brew cask install dropbox
 	brew cask install firefox
 	brew cask install google-chrome
