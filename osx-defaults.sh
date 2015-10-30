@@ -65,7 +65,7 @@ defaults write NSGlobalDomain NSTextShowsControlCharacters -bool true
 sudo defaults write /Library/Preferences/com.apple.loginwindow AdminHostInfo HostName
 
 # Restart automatically if the computer freezes
-systemsetup -setrestartfreeze on
+sudo systemsetup -setrestartfreeze on
 
 # Check for software updates daily, not just once per week
 defaults write com.apple.SoftwareUpdate ScheduleFrequency -int 1
@@ -131,7 +131,7 @@ defaults write NSGlobalDomain AppleMetricUnits -bool true
 systemsetup -settimezone "Europe/Paris" > /dev/null
 
 # Disable auto-correct
-#defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false
+defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false
 
 # Stop iTunes from responding to the keyboard media keys
 launchctl unload -w /System/Library/LaunchAgents/com.apple.rcd.plist 2> /dev/null
@@ -345,7 +345,7 @@ defaults write com.apple.dock showhidden -bool true
 find ~/Library/Application\ Support/Dock -name "*.db" -maxdepth 1 -delete
 
 # Add iOS Simulator to Launchpad
-sudo ln -sf /Applications/Xcode.app/Contents/Developer/Applications/iOS\ Simulator.app
+sudo ln -sf /Applications/Xcode.app/Contents/Developer/Applications/Simulator.app
 
 # Add a spacer to the left side of the Dock (where the applications are)
 #defaults write com.apple.dock persistent-apps -array-add '{tile-data={}; tile-type="spacer-tile";}'
@@ -513,19 +513,19 @@ hash tmutil &> /dev/null && sudo tmutil disablelocal
 # Setup Time Capsule exclusion Folders
 # reminder : use the following command to check what's actually excluded from backups
 # sudo mdfind "com_apple_backup_excludeItem = 'com.apple.backupd'"
-tmutil addexclusion -p "/.Trashes"
-tmutil addexclusion -p "/Library/Application\ Support/"
-tmutil addexclusion -p "/Library/Caches"
-tmutil addexclusion -p "/System/Library/Caches"
-tmutil addexclusion -p "/usr/local/Cellar"
-tmutil addexclusion -p "${HOME}/Public/Drop\ Box"
-tmutil addexclusion -p "${HOME}/Library/Caches"
-tmutil addexclusion -p "${HOME}/Library/Application\ Support/Steam/SteamApps"
-tmutil addexclusion -p "${HOME}/Library/Developer"
-tmutil addexclusion -p "${HOME}/Dropbox"
-tmutil addexclusion -p "${HOME}/Downloads"
-tmutil addexclusion -p "${HOME}/Movies"
-tmutil addexclusion -p "${HOME}/.Trash"
+sudo tmutil addexclusion -p "/.Trashes"
+sudo tmutil addexclusion -p "/Library/Application\ Support/"
+sudo tmutil addexclusion -p "/Library/Caches"
+sudo tmutil addexclusion -p "/System/Library/Caches"
+sudo tmutil addexclusion -p "/usr/local/Cellar"
+sudo tmutil addexclusion -p "${HOME}/Public/Drop\ Box"
+sudo tmutil addexclusion -p "${HOME}/Library/Caches"
+sudo tmutil addexclusion -p "${HOME}/Library/Application\ Support/Steam/SteamApps"
+sudo tmutil addexclusion -p "${HOME}/Library/Developer"
+sudo tmutil addexclusion -p "${HOME}/Dropbox"
+sudo tmutil addexclusion -p "${HOME}/Downloads"
+sudo tmutil addexclusion -p "${HOME}/Movies"
+sudo tmutil addexclusion -p "${HOME}/.Trash"
 
 ###############################################################################
 # Activity Monitor #

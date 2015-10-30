@@ -66,9 +66,9 @@ if [ -s $(brew --prefix nvm)/nvm.sh ]; then
 
   # Create symlink to current node in /usr/bin/node
   # Useful for Sublime Text to find node
-  if [ ! -s /usr/bin/node ]; then
-    echo "Creating symlink to node in /usr/bin/node (password required)..."
-    sudo ln -s $NVM_DIR/current/bin/node /usr/bin/node
+  if [ ! -s /usr/local/bin/node ]; then
+    echo "Creating symlink to node in /usr/local/bin/node (password required)..."
+    sudo ln -s $NVM_DIR/current/bin/node /usr/local/bin/node
   fi
 else
   echo "Couldn't find nvm.sh folder. Run : > brew install nvm"
