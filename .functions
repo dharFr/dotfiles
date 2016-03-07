@@ -160,3 +160,28 @@ function whiteboardConvert {
     echo done
   fi
 }
+
+# opens JIRA according to either the current git branch or the provided parameter
+# > jira [issue]
+#
+# See : https://gist.github.com/dharFr/ff092917ffad831f9a38
+function jira {
+  local __issue;
+  local __branch=`git symbolic-ref --short HEAD 2> /dev/null`;
+
+  if [ ! -z $1 ]; then
+    __issue=$1
+  elif [ ! -z $__branch ]; then
+    __issue=$__branch
+  fi
+
+  if [ -z $JIRA_ROOT ]; then
+    echo "Please set JIRA_ROOT variable in your environment";
+    echo " e.g : export JIRA_ROOT='https://jira.yourdomain.com/'";
+    return 1;
+  elif [ ! -z $__issue ]; then
+    open "${JIRA_ROOT}browse/$__issue";
+  else
+    open "${JIRA_ROOT}";
+  fi
+}
