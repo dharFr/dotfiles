@@ -161,27 +161,77 @@ function whiteboardConvert {
   fi
 }
 
-# opens JIRA according to either the current git branch or the provided parameter
-# > jira [issue]
+# JIRA link from the command-line
+# Open JIRA according to either the current git branch or the provided parameter
+#
+# Usage: jira [options]         open the current branch name as a JIRA issue
+#    or: jira [options] [issue] open the given JIRA issue
+#
+# Options:
+#  -h | --help : Display help
+#  -l | --link : Output issue URL to std out instead of opening it in the browser
+#
+# Setup:
+# Set JIRA_ROOT variable in your environment before use
+#  e.g : export JIRA_ROOT='https://jira.yourdomain.com/'
 #
 # See : https://gist.github.com/dharFr/ff092917ffad831f9a38
 function jira {
-  local __issue;
-  local __branch=`git symbolic-ref --short HEAD 2> /dev/null`;
-
-  if [ ! -z $1 ]; then
-    __issue=$1
-  elif [ ! -z $__branch ]; then
-    __issue=$__branch
-  fi
 
   if [ -z $JIRA_ROOT ]; then
     echo "Please set JIRA_ROOT variable in your environment";
     echo " e.g : export JIRA_ROOT='https://jira.yourdomain.com/'";
     return 1;
-  elif [ ! -z $__issue ]; then
-    open "${JIRA_ROOT}browse/$__issue";
+  fi
+
+  usage() {
+    echo "JIRA link from the command-line"
+    echo "Open JIRA according to either the current git branch or the provided parameter"
+    echo ""
+    echo "Usage: jira [options]         open the current branch name as a JIRA issue"
+    echo "   or: jira [options] [issue] open the given JIRA issue"
+    echo ""
+    echo "Options: "
+    echo " -h | --help : Display help"
+    echo " -l | --link : Output issue URL to std out instead of opening it in the browser"
+    echo ""
+    echo "Setup: "
+    echo "Set JIRA_ROOT variable in your environment before use"
+    echo " e.g : export JIRA_ROOT='https://jira.yourdomain.com/'"
+    echo ""
+    echo "See : https://gist.github.com/dharFr/ff092917ffad831f9a38"
+  }
+
+  local __issue;
+  local __open=true;
+  local __branch=`git symbolic-ref --short HEAD 2> /dev/null`;
+
+  while [ "$1" != "" ]; do
+    case $1 in
+      -l | --link ) __open=false
+                  ;;
+      -h | --help ) usage
+                  return 1
+                  ;;
+      * ) __issue=$1
+                  ;;
+    esac
+    shift
+  done
+
+  if [ -z $__issue ] && [ ! -z $__branch ]; then
+    __issue=$__branch
+  fi
+
+  local __url="${JIRA_ROOT}";
+
+  if [ ! -z $__issue ]; then
+    __url="${__url}browse/${__issue}";
+  fi
+
+  if $__open; then
+    open $__url;
   else
-    open "${JIRA_ROOT}";
+    echo $__url;
   fi
 }
