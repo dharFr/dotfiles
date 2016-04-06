@@ -235,3 +235,9 @@ function jira {
     echo $__url;
   fi
 }
+
+function jira2md {
+  local __link=`jira -l $1`
+  local __label=`echo $__link | sed 's/^.*browse\///'`
+  echo "[$__label]($__link)"
+}
