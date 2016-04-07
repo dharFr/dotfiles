@@ -1,14 +1,25 @@
 # Highlight section titles in manual pages
 export LESS_TERMCAP_md="$ORANGE"
+export SVN_EDITOR=vim
 
-# Larger bash history (allow 32³ entries; default is 500)
-export HISTSIZE=32768
-export HISTFILESIZE=$HISTSIZE
-# don't put duplicate lines in the history. See bash(1) for more options
-export HISTCONTROL=ignoredups
-# Keep track of when a command was launched
-export HISTTIMEFORMAT="%y-%m-%d %H:%M "
+#
+# gotta tune that bash_history…
+# Mostly from https://github.com/paulirish/dotfiles/blob/cd23b0975a873593d418dfa969cb0c6731e9f35b/.bash_profile#L36-L53
+#
+
+# Keep track of when a command was launched http://www.debian-administration.org/users/rossen/weblog/1
+export HISTTIMEFORMAT='%F %T '
+
 # Make some commands not show up in history
 export HISTIGNORE="ls:cd:cd -:pwd:exit:date:* --help"
 
-export SVN_EDITOR=vim
+# keep history up to date, across sessions, in realtime
+#  http://unix.stackexchange.com/a/48113
+export HISTCONTROL=ignoredups:erasedups         # no duplicate entries
+export HISTSIZE=100000                          # big big history (default is 500)
+export HISTFILESIZE=$HISTSIZE                   # big big history
+which shopt > /dev/null && shopt -s histappend  # append to history, don't overwrite it
+
+# Save and reload the history after each command finishes
+export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
+# ^ the only downside with this is [up] on the readline will go over all history not just this bash session.
