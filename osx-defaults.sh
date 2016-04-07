@@ -13,10 +13,11 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 ###############################################################################
 
 # Set computer name (as done via System Preferences → Sharing)
-sudo scutil --set ComputerName "oad"
-sudo scutil --set HostName "oad"
-sudo scutil --set LocalHostName "oad"
-sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string "oad"
+sudo scutil --set ComputerName ${DOT_HOSTNAME:-"oad"}
+sudo scutil --set HostName ${DOT_HOSTNAME:-"oad"}
+sudo scutil --set LocalHostName ${DOT_HOSTNAME:-"oad"}
+sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string ${DOT_HOSTNAME:-"oad"}
+
 
 # Set standby delay to 24 hours (default is 1 hour)
 # sudo pmset -a standbydelay 86400
