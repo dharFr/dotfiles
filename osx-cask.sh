@@ -151,6 +151,7 @@ function main() {
 	npm install -g yo
 	npm install -g generator-gulp-webapp
 	npm install -g generator-mocha
+	npm install -g trash-cli
 }
 
 main
