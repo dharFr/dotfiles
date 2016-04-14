@@ -133,9 +133,14 @@ function svn-alldeleted {
 # the `.git` directory, listing directories first. The output gets piped into
 # `less` with options to preserve color and line numbers, unless the output is
 # small enough for one screen.
+# Defaults to 3 levels deep, do more with `t 5` or `t 1`
+# pass additional args after
+# See : https://gist.github.com/wesbos/1432b08749e3cd2aea22fcea2628e2ed
 function tre() {
-  tree -aC -I '.git|node_modules|bower_components|as3corelib|.sass-cache' --dirsfirst "$@" | less -FRNX
+  local levels=${1:-3}; shift
+  tree  -aC -I '.git|node_modules|bower_components|as3corelib|.sass-cache|.DS_Store' --dirsfirst -L $levels $@ | less -FRNX
 }
+alias t=tre
 
 # Whiteboard Picture Cleaner - Shell one-liner/script to clean up and beautify photos of whiteboards!
 # See : https://gist.github.com/lelandbatey/8677901
