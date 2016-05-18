@@ -105,7 +105,6 @@ function main() {
 	brew cask install google-chrome-canary
 	brew cask install opera
 	brew cask install opera-next
-	brew cask install adium
 	brew cask install vlc
 	brew cask install airfoil
 	brew cask install skype
@@ -116,7 +115,7 @@ function main() {
 	brew cask install charles
 	brew cask install iterm2
 	#brew cask install macvim
-	brew cask install sublime-text
+	brew cask install sublime-text3
 	brew cask install virtualbox
 
 	# OSX quick look plugins (from https://github.com/sindresorhus/quick-look-plugins)

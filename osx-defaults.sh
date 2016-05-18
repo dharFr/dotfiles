@@ -484,8 +484,8 @@ defaults write com.apple.terminal StringEncodings -array 4
 # Use a modified version of the Pro theme by default in Terminal.app
 open "conf/oad.terminal"
 sleep 1 # Wait a bit to make sure the theme is loaded
-defaults write com.apple.terminal "Default Window Settings" -string "Mathias"
-defaults write com.apple.terminal "Startup Window Settings" -string "Mathias"
+defaults write com.apple.terminal "Default Window Settings" -string "oad"
+defaults write com.apple.terminal "Startup Window Settings" -string "oad"
 
 # Enable “focus follows mouse” for Terminal.app and all X11 apps
 # i.e. hover over a window and start typing in it without clicking first
@@ -493,7 +493,7 @@ defaults write com.apple.terminal "Startup Window Settings" -string "Mathias"
 #defaults write org.x.X11 wm_ffm -bool true
 
 # Install pretty iTerm colors
-open "conf/Solarized Dark.itermcolors"
+open "conf/cobalt2.itermcolors"
 
 # Don’t display the annoying prompt when quitting iTerm
 defaults write com.googlecode.iterm2 PromptOnQuit -bool false
@@ -605,8 +605,12 @@ defaults write com.google.Chrome.canary ExtensionInstallSources -array "https://
 # Sublime Text #
 ###############################################################################
 
-# Install Sublime Text settings
-cp -r conf/Preferences.sublime-settings ~/Library/Application\ Support/Sublime\ Text*/Packages/User/Preferences.sublime-settings 2> /dev/null
+# Symlink Sublime Text User folder form Dropbox
+ln -s ~/Dropbox/Applications/SublimeText/User ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/User 2> /dev/null
+
+###############################################################################
+# Sublime Text #
+###############################################################################
 
 ###############################################################################
 # Twitter.app #
