@@ -55,14 +55,13 @@ export PATH=/usr/local/bin:/usr/local/sbin:$PATH
 # This loads NVM
 if [ -s $(brew --prefix nvm)/nvm.sh ]; then
   source $(brew --prefix nvm)/nvm.sh
-  export NVM_DIR=~/.nvm
-  nvm use 0.10
+  export NVM_DIR="$HOME/.nvm"
+  nvm use default
 
-  # Create symlink to nvm current version
-  # Should be removed after https://github.com/creationix/nvm/pull/447 merged
-  if [ ! -s ~/.nvm/current ]; then
-    ln -s $NVM_DIR/$(nvm current) $NVM_DIR/current
-  fi
+  # nvm use will not, by default, create a "current" symlink. Set
+  # $NVM_SYMLINK_CURRENT to "true" to enable this behavior, which is sometimes
+  # useful for IDEs. See https://github.com/creationix/nvm#usage
+  export NVM_SYMLINK_CURRENT="true"
 
   # Create symlink to current node in /usr/bin/node
   # Useful for Sublime Text to find node
@@ -70,6 +69,9 @@ if [ -s $(brew --prefix nvm)/nvm.sh ]; then
     echo "Creating symlink to node in /usr/local/bin/node (password required)..."
     sudo ln -s $NVM_DIR/current/bin/node /usr/local/bin/node
   fi
+
+  # Add completion for npm commands
+  source <(npm completion)
 else
   echo "Couldn't find nvm.sh folder. Run : > brew install nvm"
 fi
