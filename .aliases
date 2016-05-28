@@ -2,6 +2,10 @@
 alias ll="ls -Gl"
 alias lla="ls -Gla"
 alias npmeu="npm --registry http://registry.npmjs.eu/"
+# npm alias for offline mode.
+# e.g. `npmoffline install <package-I-already-installed>`
+# See https://soledadpenades.com/2015/05/31/npmoffline-installing-npm-packages-from-the-cache/
+alias npmoffline="npm --cache-min 9999999 "
 
 # Safeguard rm
 # see https://github.com/sindresorhus/guides/blob/master/how-not-to-rm-yourself.md#safeguard-rm
