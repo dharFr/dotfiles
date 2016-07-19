@@ -25,7 +25,7 @@
 	# Show all commits on all branches that aren't pushed yet
 	# see : http://stackoverflow.com/questions/2016901/viewing-unpushed-git-commits
 	unpushed = log --branches --not --remotes --simplify-by-decoration --decorate --oneline
-	
+
 	# View your recently used branches with `git latest`
 	# see : https://twitter.com/wesbos/status/692012780598112256
 	latest = for-each-ref --count=30 --sort=-committerdate refs/heads/ --format='%(refname:short)'
@@ -48,7 +48,7 @@
 [core]
 	excludesfile = ~/.gitignore-global
 	whitespace = trailing-space,space-before-tab,tab-in-indent
-	editor = vim
+	editor = subl -n -w
 
 [rerere]
 	enabled = true

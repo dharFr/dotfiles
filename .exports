@@ -1,6 +1,6 @@
 # Highlight section titles in manual pages
 export LESS_TERMCAP_md="$ORANGE"
-export SVN_EDITOR=vim
+export EDITOR=subl
 
 #
 # gotta tune that bash_history…
