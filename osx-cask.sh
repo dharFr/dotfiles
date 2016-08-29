@@ -151,7 +151,8 @@ function main() {
 	npm install -g yo
 	npm install -g generator-gulp-webapp
 	npm install -g generator-mocha
-	npm install -g trash-cli
+	npm install -g trash-cli # dependency for _Safeguard rm_ alias
+	npm install -g gifsicle  # dependency for _mov2gif_ function
 }
 
 main

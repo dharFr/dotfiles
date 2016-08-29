@@ -255,3 +255,16 @@ function dataurl() {
   fi
   echo "data:${mimeType};base64,$(openssl base64 -in "$1" | tr -d '\n')";
 }
+
+# Convert movie to gif
+# Alternatively, thefollowing could be used if gifsicle dependency is missing :
+# > ffmpeg -i $1 -vf scale=${3:-600x400} -r 30 $2
+function mov2gif() {
+  ffmpeg \
+    -i $1 \
+    -s ${3:-600x400} \
+    -pix_fmt rgb24 \
+    -r 10 \
+    -f gif - | \
+    gifsicle --optimize=3 > $2
+}
