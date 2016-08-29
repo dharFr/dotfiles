@@ -134,7 +134,7 @@ function main() {
 	brew cleanup
 
 	# install lastest node.js
-	nvm install 0.11
+	nvm install 4
 
 	# install usefull global packages
 	npm install -g bower
