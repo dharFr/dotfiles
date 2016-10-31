@@ -9,7 +9,7 @@ alias npmoffline="npm --cache-min 9999999 "
 
 # Safeguard rm
 # see https://github.com/sindresorhus/guides/blob/master/how-not-to-rm-yourself.md#safeguard-rm
-alias rm='rm -I'
+alias rm='rm -i'
 
 # Always use color output for `ls`
 if [[ "$OSTYPE" =~ ^darwin ]]; then
