@@ -32,6 +32,18 @@ function main() {
 		print_error "Sorry, this script is for Mac OS X only!"
 		exit
 	fi
+	
+	# -- Make sure we use ZSH shell ----------------------------------------
+	if [ -n "$BASH_VERSION" ]; then
+		print_info "Switching from BASH to ZSH as a default shell. Please restart the script once done."
+		chsh -s $(which zsh)
+		exit
+	elif [ -n "$ZSH_VERSION" ]; then
+		print_info "Already using ZSH shell. All good 👍"
+	else
+		print_error "Unknow shell. Please check your setup."
+		exit
+	fi
 
 	# --------------------------------------------------------------------------
 	# | Installation |
@@ -46,11 +58,27 @@ function main() {
 	else
 		print_success "XCode Command Line Tools"
 	fi
+	
+	# -- Install zim for ZSH ------------------------------------------------------------------
+	if [ ! -d "${ZDOTDIR:-${HOME}}/.zim" ]; then
+		print_info "Cloning zim repository to ${ZDOTDIR:-${HOME}}/.zim"
+		git clone --recursive https://github.com/Eriner/zim.git ${ZDOTDIR:-${HOME}}/.zim
+
+		print_info "prepend the initialization templates to configs"
+		setopt EXTENDED_GLOB
+		for template_file ( ${ZDOTDIR:-${HOME}}/.zim/templates/* ); do
+		  user_file="${ZDOTDIR:-${HOME}}/.${template_file:t}"
+		  touch ${user_file}
+		  ( print -rn "$(<${template_file})$(<${user_file})" >! ${user_file} ) 2>/dev/null
+		done
+		
+		print_success "zim installed. Make sure to open a new terminal and run 'source \${ZDOTDIR:-\${HOME}}/.zlogin' to finish optimization"
+	fi
 
 	# -- Homebrew ------------------------------------------------------------------
 	if [ $(cmd_exists "brew") -eq 0 ]; then
 		print_info "installing homebrew..."
-		ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)"
+		/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 		print_result $? "homebrew"
 		sleep 10
 	else
@@ -84,13 +112,12 @@ function main() {
 	brew install lynx
 	# brew install node # see bash/function.sh => setup-nodejs
 	brew install tree
-	brew install phantomjs
 	brew install macvim --override-system-vim
 	brew install editorconfig
 	brew install markdown
 	brew install nvm
 	brew install --HEAD hub
-	# brew install z # perfer to install z from utils folder for it to wotk on unix
+	brew install z # perfer to install z from utils folder for it to wotk on unix
 
 	# Install native apps
 	brew tap phinze/homebrew-cask
