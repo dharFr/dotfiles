@@ -135,49 +135,44 @@ function main() {
 	brew cask install vlc
 	brew cask install airfoil
 	brew cask install skype
-	brew cask install spotify
-	brew cask install steam
+	brew cask install deezer
+	brew cask install slack
+	#brew cask install steam
 
 	# dev
 	brew cask install charles
 	brew cask install iterm2
-	#brew cask install macvim
-	brew cask install sublime-text3
-	brew cask install virtualbox
+	brew cask install sublime-text
+	#brew cask install virtualbox
 
 	# OSX quick look plugins (from https://github.com/sindresorhus/quick-look-plugins)
-	brew cask install qlcolorcode 
-	brew cask install qlstephen 
-	brew cask install qlmarkdown 
-	brew cask install quicklook-json 
-	brew cask install qlprettypatch 
-	brew cask install quicklook-csv 
-	brew cask install betterzipql 
-	brew cask install qlimagesize 
-	brew cask install webpquicklook 
+	brew cask install qlcolorcode
+	brew cask install qlstephen
+	brew cask install qlmarkdown
+	brew cask install quicklook-json
+	brew cask install qlprettypatch
+	brew cask install quicklook-csv
+	brew cask install betterzipql
+	brew cask install qlimagesize
+	brew cask install webpquicklook
 	brew cask install suspicious-package
+	brew cask install quicklookase
+	brew cask install qlvideo
+	brew cask install provisionql
+
 
 	# Remove outdated versions from the cellar
 	brew cleanup
 
 	# install lastest node.js
-	nvm install 4
+	nvm install --lts
 
 	# install usefull global packages
-	npm install -g bower
-	npm install -g grunt-cli
-	npm install -g gulp
 	npm install -g coffee-script
-	npm install -g csslint
-	npm install -g jshint
 	npm install -g eslint
 	npm install -g coffeelint
 	npm install -g jsonlint
-	npm install -g jsxhint
-	npm install -g react-tools
 	npm install -g yo
-	npm install -g generator-gulp-webapp
-	npm install -g generator-mocha
 	npm install -g trash-cli # dependency for _Safeguard rm_ alias
 	npm install -g gifsicle  # dependency for _mov2gif_ function
 }
