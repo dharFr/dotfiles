@@ -10,7 +10,7 @@ alias _echo="[ -z \"$MYVIMRC\" ] && echo"
 _echo "bash init...."
 ## Load .bash_prompt, .functions and .extra from $DOT_FILES
 # .extra can be used for settings you don’t want to commit
-for file in $DOT_FILES/.{bash_prompt,exports,aliases,functions,extra}; do
+for file in $DOT_FILES/rc/{bash_prompt,exports,aliases,functions,extra,z,nvm}.sh; do
   [ -r "$file" ] && source "$file"
   _echo "|- loaded $file"
 done
@@ -51,30 +51,6 @@ set -o vi
 
 # brew doctor asked for this one
 export PATH=/usr/local/bin:/usr/local/sbin:$PATH
-
-# This loads NVM
-if [ -s $(brew --prefix nvm)/nvm.sh ]; then
-  source $(brew --prefix nvm)/nvm.sh
-  export NVM_DIR="$HOME/.nvm"
-  nvm use default
-
-  # nvm use will not, by default, create a "current" symlink. Set
-  # $NVM_SYMLINK_CURRENT to "true" to enable this behavior, which is sometimes
-  # useful for IDEs. See https://github.com/creationix/nvm#usage
-  export NVM_SYMLINK_CURRENT="true"
-
-  # Create symlink to current node in /usr/bin/node
-  # Useful for Sublime Text to find node
-  if [ ! -s /usr/local/bin/node ]; then
-    echo "Creating symlink to node in /usr/local/bin/node (password required)..."
-    sudo ln -s $NVM_DIR/current/bin/node /usr/local/bin/node
-  fi
-
-  # Add completion for npm commands
-  source <(npm completion)
-else
-  echo "Couldn't find nvm.sh folder. Run : > brew install nvm"
-fi
 
 if [ -d $(brew --prefix hub) ]; then
     eval "$(hub alias -s)"

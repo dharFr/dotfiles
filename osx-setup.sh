@@ -34,12 +34,13 @@ function main() {
 	fi
 	
 	# -- Make sure we use ZSH shell ----------------------------------------
-	if [ $SHELL != $(which zsh) ]; then
-		print_info "Switching to ZSH as a default shell."
-		chsh -s $(which zsh)
-	else
+	if [ $SHELL != $(which zsh) ]; then 
+		print_info "Switching to ZSH as a default shell. Please restart the script once done."
+		chsh -s $(which zsh) 
+	else 
 		print_info "Already using ZSH shell. All good 👍"
 	fi
+
 
 	# --------------------------------------------------------------------------
 	# | Installation |
@@ -100,21 +101,20 @@ function main() {
 	brew install macvim --override-system-vim
 	brew install editorconfig
 	brew install markdown
-	brew install nvm
 	brew install --HEAD hub
-	brew install z # perfer to install z from utils folder for it to wotk on unix
+	brew install z
+	brew install nvm
+	mkdir ${HOME}/.nvm
 
 	# Install native apps
-	brew tap phinze/homebrew-cask
-	brew install brew-cask
+	brew tap caskroom/cask
 
 	# OSX apps
-	brew cask install onepassword
+	brew cask install 1password
 	brew cask install gpgtools
 	brew cask install dropbox
 	brew cask install firefox
 	brew cask install google-chrome
-	brew cask install google-chrome-canary
 	brew cask install opera
 	brew cask install opera-next
 	brew cask install vlc
@@ -151,6 +151,7 @@ function main() {
 
 	# install lastest node.js
 	nvm install --lts
+	nvm alias default lts/*
 
 	# install usefull global packages
 	npm install -g coffee-script

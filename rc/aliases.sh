@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 # List all files colorized in long format
 alias ll="ls -Gl"
 alias lla="ls -Gla"

@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 # Highlight section titles in manual pages
 export LESS_TERMCAP_md="$ORANGE"
 export EDITOR=subl

@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 ############################################
 # Modified from emilis bash prompt script
 # from https://github.com/emilis/emilis-config/blob/master/.bash_ps1
