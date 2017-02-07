@@ -34,15 +34,11 @@ function main() {
 	fi
 	
 	# -- Make sure we use ZSH shell ----------------------------------------
-	if [ -n "$BASH_VERSION" ]; then
-		print_info "Switching from BASH to ZSH as a default shell. Please restart the script once done."
+	if [ $SHELL != $(which zsh) ]; then
+		print_info "Switching to ZSH as a default shell."
 		chsh -s $(which zsh)
-		exit
-	elif [ -n "$ZSH_VERSION" ]; then
-		print_info "Already using ZSH shell. All good 👍"
 	else
-		print_error "Unknow shell. Please check your setup."
-		exit
+		print_info "Already using ZSH shell. All good 👍"
 	fi
 
 	# --------------------------------------------------------------------------
@@ -52,7 +48,7 @@ function main() {
 
 	# -- Check for XCode Command Line Tools ----------------------------------------
 	#
-	if [ $(cmd_exists "clang") -eq 0 ]; then
+	if [ -z `xcode-select -p` ]; then
 		print_error "Before going through this, you may want to install XCode Command Line tools by running : xcode-select --install"
 		exit
 	else
@@ -61,7 +57,7 @@ function main() {
 	
 	# -- Install zim for ZSH ------------------------------------------------------------------
 	if [ ! -d "${ZDOTDIR:-${HOME}}/.zim" ]; then
-		$CWD/setup/zim-setup.zsh		
+		$PWD/setup/zim-setup.zsh		
 	fi
 
 	# -- Homebrew ------------------------------------------------------------------
