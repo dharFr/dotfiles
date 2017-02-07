@@ -5,130 +5,22 @@ function md() {
   mkdir -p "$@" && cd "$@"
 }
 
-# `tre` is a shorthand for `tree` with hidden files and color enabled, ignoring
-# the `.git` directory, listing directories first. The output gets piped into
-# `less` with options to preserve color and line numbers, unless the output is
-# small enough for one screen.
-function tre() {
-  tree -aC -I '.git|node_modules|bower_components' --dirsfirst "$@" | less -FRNX
+# Start an HTTP server from a directory, optionally specifying the port
+function server() {
+  local port="${1:-8000}";
+  sleep 1 && open "http://localhost:${port}/" &
+  # Set the default Content-Type to `text/plain` instead of `application/octet-stream`
+  # And serve everything as UTF-8 (although not technically correct, this doesn’t break anything for binary files)
+  python -c $'import SimpleHTTPServer;\nmap = SimpleHTTPServer.SimpleHTTPRequestHandler.extensions_map;\nmap[""] = "text/plain";\nfor key, value in map.items():\n\tmap[key] = value + ";charset=UTF-8";\nSimpleHTTPServer.test();' "$port";
 }
 
-#Start an HTTP server from a directory, optionally specifying the port
-function server {
-  local port="${1:-8000}"
-  open "http://localhost:${port}/"
-  python -m SimpleHTTPServer "$port"
-}
-
-
-# grailsenv - Dynamically switch your GRAILS_HOME
-# grailsenv [VERSION]
-# Try to switch your GRAILS_HOME property to 'grails-VERSION'
-# according to the current value
-#
-# if a 'grails-VERSION' directory exists in the same folder,
-# exports a new GRAILS_HOME and add it to the PATH
-#
-# Without parameters, displays the current GRAILS_HOME value
-function grailsenv {
-
-
-    # without arguments, log available grails folders
-    # or check for application.properties file
-    if [ -v $1 ]; then
-        if [ -f 'application.properties' ]; then
-          echo "> reading grails version from application.properties file..."
-          __version=`awk -F= '/app.grails.version/ {print $2}' application.properties`
-          echo "> found version $__version in application.properties"
-        else
-          echo ""
-          echo "Available versions: "
-          gvm list grails
-        fi
-    else
-        __version=$1
-    fi
-
-    if [ ! -v $__version ]; then
-        gvm use grails $__version
-    fi
-}
-
-function grailsrun {
-
-  gr_port="8080"
-  gr_ip="localhost"
-  gr_host=0
-
-  usage() {
-    echo "Launch 'grails run-app' with options."
-    echo ""
-    echo " -h | --help Display help"
-    echo " -r | --remote-host Run 'grails run-app' with -Dserver.host={your-ip} option"
-    echo " -p | --port Run 'grails run-app' with -Dserver.port={value}"
-    echo ""
-    echo "Example:"
-    echo "> grailsrun -r -p 9090"
-    echo "will run => grails -Dserver.host={your-ip} -Dserver.port=9090 run-app "
-    echo ""
-    echo "> grailsrun -p 8081"
-    echo "will run => grails -Dserver.port=8081 run-app "
-  }
-
-  while [ "$1" != "" ]; do
-    case $1 in
-      -p | --port ) shift
-                  gr_port=${1}
-                  ;;
-      -r | --remote-host ) gr_host=1
-                  ;;
-      -h | --help ) usage
-                  exit 1
-    esac
-    shift
-  done
-
-  if [ $gr_host = 1 ]; then
-    gr_ip="`ifconfig eth0 | grep inet\ addr:| awk {'print $2'} | sed s/.*://`"
-  fi
-
-  echo "| Launching: grails -Dserver.host=$gr_ip -Dserver.port=$gr_port run-app"
-  echo ""
-  grails -Dserver.host=$gr_ip -Dserver.port=$gr_port run-app
-}
-
-
-
-# Apply svn sub-command to every newly created file (marked with ? in 'svn status')
-# Example :
-#
-# Add every new file
-# > svn-allnew add
-#
-# Still works with extra parameters
-# > svn-allnew add --force
-function svn-allnew {
-  if [ -z $1 ]; then
-    echo "Please add an svn-subcommand as a parameter (try 'svn help')"
-  else
-    svn st | grep '^\?' | awk '{print $2}' | xargs svn $*
-  fi
-}
-
-# Apply svn sub-command to every deleted file (marked with ! in 'svn status')
-# Example :
-#
-# Delete every missing file from repo
-# > svn-alldeleted delete
-#
-# Still works with extra parameters
-# > svn-alldeleted delete --force
-function svn-alldeleted {
-  if [ -z $1 ]; then
-    echo "Please add an svn-subcommand as a parameter (try 'svn help')"
-  else
-    svn st | grep '^!' | awk '{print $2}' | xargs svn $*
-  fi
+# Start a PHP server from a directory, optionally specifying the port
+# (Requires PHP 5.4.0+.)
+function phpserver() {
+  local port="${1:-4000}";
+  local ip=$(ipconfig getifaddr en1);
+  sleep 1 && open "http://${ip}:${port}/" &
+  php -S "${ip}:${port}";
 }
 
 # `tre` is a shorthand for `tree` with hidden files and color enabled, ignoring
@@ -147,7 +39,6 @@ alias t=tre
 # Whiteboard Picture Cleaner - Shell one-liner/script to clean up and beautify photos of whiteboards!
 # See : https://gist.github.com/lelandbatey/8677901
 function whiteboardConvert {
-
   local __output
 
   if [ -x convert ]; then
@@ -269,4 +160,39 @@ function mov2gif() {
     -r 10 \
     -f gif - | \
     gifsicle --optimize=3 > $2
+}
+
+# Determine size of a file or total size of a directory
+function fs() {
+  if du -b /dev/null > /dev/null 2>&1; then
+    local arg=-sbh;
+  else
+    local arg=-sh;
+  fi
+  if [[ -n "$@" ]]; then
+    du $arg -- "$@";
+  else
+    du $arg .[^.]* ./*;
+  fi;
+}
+
+
+# Compare original and gzipped file size
+function gz() {
+  local origsize=$(wc -c < "$1");
+  local gzipsize=$(gzip -c "$1" | wc -c);
+  local ratio=$(echo "$gzipsize * 100 / $origsize" | bc -l);
+  printf "orig: %d bytes\n" "$origsize";
+  printf "gzip: %d bytes (%2.2f%%)\n" "$gzipsize" "$ratio";
+}
+
+
+# Syntax-highlight JSON strings or files
+# Usage: `json '{"foo":42}'` or `echo '{"foo":42}' | json`
+function json() {
+  if [ -t 0 ]; then # argument
+    python -mjson.tool <<< "$*" | pygmentize -l javascript;
+  else # pipe
+    python -mjson.tool | pygmentize -l javascript;
+  fi;
 }

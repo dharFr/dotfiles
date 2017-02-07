@@ -10,7 +10,7 @@ alias _echo="[ -z \"$MYVIMRC\" ] && echo"
 _echo "bash init...."
 ## Load .bash_prompt, .functions and .extra from $DOT_FILES
 # .extra can be used for settings you don’t want to commit
-for file in $DOT_FILES/rc/{bash_prompt,exports,aliases,functions,extra,z,nvm}.sh; do
+for file in $DOT_FILES/rc/{bash_prompt,exports,aliases,functions,extra,hub,z,path,nvm}.sh; do
   [ -r "$file" ] && source "$file"
   _echo "|- loaded $file"
 done
@@ -49,28 +49,7 @@ set -o vi
 # If possible, add tab completion for many more commands
 [ -f /etc/bash_completion ] && source /etc/bash_completion
 
-# brew doctor asked for this one
-export PATH=/usr/local/bin:/usr/local/sbin:$PATH
-
-if [ -d $(brew --prefix hub) ]; then
-    eval "$(hub alias -s)"
-fi
-
-# ruby conf I guess?
-if [ -d $HOME/.rbenv/bin ]; then
-  export PATH="$HOME/.rbenv/bin:$PATH"
-  eval "$(rbenv init -)"
-fi
-if [ -d $HOME/.rbenv/shims ]; then
-  export PATH="$HOME/.rbenv/shims:$PATH"
-  eval "$(rbenv init -)"
-fi
-
-# GVM setup
-[[ -s "$HOME/.gvm/bin/gvm-init.sh" && -z $(which gvm-init.sh | grep '/gvm-init.sh') ]] && source "$HOME/.gvm/bin/gvm-init.sh"
-
-
-if [ -f $DOT_FILES/.post_extra ]; then
-  source $DOT_FILES/.post_extra
-  echo "|- loaded $DOT_FILES/.post_extra"
+if [ -f $DOT_FILES/rc/post_extra.sh ]; then
+  source $DOT_FILES/rc/post_extra.sh
+  echo "|- loaded $DOT_FILES/rc/post_extra.sh"
 fi
