@@ -32,12 +32,12 @@ function main() {
 		print_error "Sorry, this script is for Mac OS X only!"
 		exit
 	fi
-	
+
 	# -- Make sure we use ZSH shell ----------------------------------------
-	if [ $SHELL != $(which zsh) ]; then 
+	if [ $SHELL != $(which zsh) ]; then
 		print_info "Switching to ZSH as a default shell. Please restart the script once done."
-		chsh -s $(which zsh) 
-	else 
+		chsh -s $(which zsh)
+	else
 		print_info "Already using ZSH shell. All good 👍"
 	fi
 
@@ -55,10 +55,10 @@ function main() {
 	else
 		print_success "XCode Command Line Tools"
 	fi
-	
+
 	# -- Install zim for ZSH ------------------------------------------------------------------
 	if [ ! -d "${ZDOTDIR:-${HOME}}/.zim" ]; then
-		$PWD/setup/zim-setup.zsh		
+		$PWD/setup/zim-setup.zsh
 	fi
 
 	# -- Homebrew ------------------------------------------------------------------
@@ -66,6 +66,9 @@ function main() {
 
 	# -- NPM ------------------------------------------------------------------
 	$PWD/setup/npm.sh
+
+	# -- Powerline fonts ------------------------------------------------------
+	$PWD/setup/powerline-fonts.sh
 }
 
 main
