@@ -194,6 +194,16 @@ systemsetup -settimezone "Europe/Paris" > /dev/null
 # Stop iTunes from responding to the keyboard media keys
 launchctl unload -w /System/Library/LaunchAgents/com.apple.rcd.plist 2> /dev/null
 
+# Custom layout for TouchBar Control Strip (Mini & Full)
+defaults write com.apple.controlstrip MiniCustomized -array \
+	"com.apple.system.media-play-pause" "com.apple.system.mute" \
+	"com.apple.system.volume" "com.apple.system.screen-lock"
+defaults write com.apple.controlstrip FullCustomized -array \
+	"com.apple.system.screencapture" "com.apple.system.group.brightness" \
+	"com.apple.system.mission-control" "com.apple.system.launchpad" \
+	"com.apple.system.group.keyboard-brightness" "com.apple.system.group.media" \
+	"com.apple.system.group.volume" "com.apple.system.do-not-disturb" "com.apple.system.siri"
+
 ###############################################################################
 # Screen #
 ###############################################################################
@@ -813,8 +823,8 @@ defaults write com.twitter.twitter-mac HideInBackground -bool true
 # Kill affected applications #
 ###############################################################################
 
-for app in "Activity Monitor" "Address Book" "Calendar" "Contacts" "Dock" \
-"Finder" "Mail" "Messages" "Safari" "SystemUIServer" "Terminal" \
+for app in "Activity Monitor" "Address Book" "Calendar" "Contacts" "ControlStrip" \
+"Dock" "Finder" "Mail" "Messages" "Safari" "SystemUIServer" "Terminal" \
 "Twitter" "iCal"; do
 killall "${app}" > /dev/null 2>&1
 done
