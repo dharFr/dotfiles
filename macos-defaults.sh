@@ -792,7 +792,8 @@ defaults write com.operasoftware.OperaDeveloper PMPrintingExpandedStateForPrint2
 ###############################################################################
 
 # Symlink Sublime Text User folder form Dropbox
-ln -s ~/Dropbox/Applications/SublimeText/User ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/User 2> /dev/null
+rm -rf "${HOME}/Library/Application Support/Sublime Text 3/Packages/User"
+ln -s "${HOME}/Dropbox/Applications/SublimeText/User" "${HOME}/Library/Application Support/Sublime Text 3/Packages/User" 2> /dev/null
 
 ###############################################################################
 # Twitter.app #
