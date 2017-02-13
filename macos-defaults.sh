@@ -45,6 +45,9 @@ defaults write com.apple.systemuiserver menuExtras -array \
 	"/System/Library/CoreServices/Menu Extras/Battery.menu" \
 "/System/Library/CoreServices/Menu Extras/Clock.menu"
 
+# Show fast user switching menu as: icon
+defaults write -g userMenuExtraStyle -int 2
+
 # Set sidebar icon size to medium
 defaults write NSGlobalDomain NSTableViewDefaultSizeMode -int 2
 
@@ -362,6 +365,9 @@ defaults write com.apple.dock mouse-over-hilite-stack -bool true
 # Set the icon size of Dock items to 36 pixels
 defaults write com.apple.dock tilesize -int 36
 
+# Enable magnification
+defaults write com.apple.dock magnification -bool true
+
 # Change minimize/maximize window effect
 defaults write com.apple.dock mineffect -string "scale"
 
@@ -445,6 +451,21 @@ sudo ln -sf "/Applications/Xcode.app/Contents/Developer/Applications/Simulator (
 # Bottom left screen corner → Start screen saver
 # defaults write com.apple.dock wvous-bl-corner -int 5
 # defaults write com.apple.dock wvous-bl-modifier -int 0
+
+###############################################################################
+# Siri #
+###############################################################################
+
+# Enable Siri
+defaults write com.apple.assistant.support "Assistant Enabled" -bool true
+
+# Language
+defaults write com.apple.assistant.backedup "Session Language" -string "fr-FR"
+defaults write com.apple.assistant.backedup "Output Voice" -dict \
+  Custom -int 1 \
+  Footprint -int 0 \
+  Gender -int 2 \
+  Language -string "fr-FR"
 
 ###############################################################################
 # Safari & WebKit #
