@@ -176,7 +176,6 @@ function fs() {
   fi;
 }
 
-
 # Compare original and gzipped file size
 function gz() {
   local origsize=$(wc -c < "$1");
@@ -186,7 +185,6 @@ function gz() {
   printf "gzip: %d bytes (%2.2f%%)\n" "$gzipsize" "$ratio";
 }
 
-
 # Syntax-highlight JSON strings or files
 # Usage: `json '{"foo":42}'` or `echo '{"foo":42}' | json`
 function json() {
@@ -195,4 +193,13 @@ function json() {
   else # pipe
     python -mjson.tool | pygmentize -l javascript;
   fi;
+}
+
+# Pick a random value from the provided arguments
+# > randomPick one two three four
+# two
+# > randomPick one two three four
+# one
+function randomPick() {
+  printf "%s\n" $@ | sort -R | head -n 1;
 }
