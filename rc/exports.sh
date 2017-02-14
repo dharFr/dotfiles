@@ -29,3 +29,5 @@ export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
 # Required by CoreUtils (see macos-setup.sh)
 export PATH=$(brew --prefix coreutils)/libexec/gnubin:$PATH
 
+# Look into local node_modules first
+export PATH=./node_modules/.bin:$PATH
