@@ -36,11 +36,6 @@
   # hub pull-request
   pr = pull-request
 
-  # DM Player specific, to run with the appropriate git `prepare-commit-msg` hook.
-  cmhtml  = "!export PROJECT_NAME=HTML5 && git cm"
-  cmflash = "!export PROJECT_NAME=FLASH && git cm"
-  prplayer = pull-request -b dailymotion:dev
-
 [user]
 	name = Olivier Audard
 	email = audard@gmail.com
