@@ -56,6 +56,7 @@ brew install markdown
 brew install --HEAD hub
 brew install z
 brew install nvm
+brew install mas
 
 if [ ! -d "${HOME}/.nvm" ]; then
 	mkdir ${HOME}/.nvm
