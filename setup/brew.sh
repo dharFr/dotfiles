@@ -57,12 +57,21 @@ brew install editorconfig
 brew install markdown
 brew install --HEAD hub
 brew install z
-brew install nvm
 brew install mas
+
+# nvm setup
+brew install nvm
 
 if [ ! -d "${HOME}/.nvm" ]; then
 	mkdir ${HOME}/.nvm
 fi
+
+# Loads nvm
+source $PWD/rc/nvm.sh
+
+# install lastest node.js
+nvm install --lts
+nvm alias default lts/*
 
 # Install native apps
 brew tap caskroom/cask

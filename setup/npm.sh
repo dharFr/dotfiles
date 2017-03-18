@@ -1,9 +1,5 @@
 #!/usr/bin/env bash
 
-# install lastest node.js
-nvm install --lts
-nvm alias default lts/*
-
 # install usefull global packages
 npm install -g coffee-script
 npm install -g eslint
