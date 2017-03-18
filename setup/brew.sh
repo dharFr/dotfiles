@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+. ./setup/_helper-functions.sh
+
 # -- Homebrew ------------------------------------------------------------------
 if [ $(cmd_exists "brew") -eq 0 ]; then
 	print_info "installing homebrew..."
