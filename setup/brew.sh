@@ -58,6 +58,8 @@ brew install markdown
 brew install --HEAD hub
 brew install z
 brew install mas
+brew install ffmpeg
+brew install gifsicle
 
 # nvm setup
 brew install nvm
