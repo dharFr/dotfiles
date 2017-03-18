@@ -26,8 +26,16 @@ which shopt > /dev/null && shopt -s histappend  # append to history, don't overw
 export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
 # ^ the only downside with this is [up] on the readline will go over all history not just this bash session.
 
-# Required by CoreUtils (see macos-setup.sh)
+#
+# $PATH conf bellow
+#
+
+# brew doctor asked for this one
+export PATH=/usr/local/bin:/usr/local/sbin:$PATH
+
+# Required by CoreUtils (see setup/brew.sh)
 export PATH=$(brew --prefix coreutils)/libexec/gnubin:$PATH
 
 # Look into local node_modules first
 export PATH=./node_modules/.bin:$PATH
+

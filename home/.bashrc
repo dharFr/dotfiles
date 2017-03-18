@@ -10,7 +10,7 @@ alias _echo="[ -z \"$MYVIMRC\" ] && echo"
 _echo "bash init...."
 ## Load .bash_prompt, .functions and .extra from $DOT_FILES
 # .extra can be used for settings you don’t want to commit
-for file in $DOT_FILES/rc/{bash_prompt,exports,aliases,functions,extra,hub,z,path,nvm}.sh; do
+for file in $DOT_FILES/rc/{bash_prompt,exports,aliases,functions,extra,hub,z,nvm}.sh; do
   [ -r "$file" ] && source "$file"
   _echo "|- loaded $file"
 done
