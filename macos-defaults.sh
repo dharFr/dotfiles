@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 # Mostly stolen from https://github.com/mathiasbynens/dotfiles/blob/master/.osx
+# See also : https://github.com/reitermarkus/dotfiles/tree/master/include/settings
 
 # Close any open System Preferences panes, to prevent them from overriding
 # settings we’re about to change
@@ -17,20 +18,16 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 ###############################################################################
 
 # Set computer name (as done via System Preferences → Sharing)
-# sudo scutil --set ComputerName ${DOT_HOSTNAME:-"oad"}
+# sudo scutil --set ComputerName ${DOT_HOSTNAME:-"oad-mbp"}
 # sudo scutil --set HostName ${DOT_HOSTNAME:-"oad"}
 # sudo scutil --set LocalHostName ${DOT_HOSTNAME:-"oad"}
-# sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string ${DOT_HOSTNAME:-"oad"}
-
-
-# Set standby delay to 24 hours (default is 1 hour)
-# sudo pmset -a standbydelay 86400
-
-# Disable the sound effects on boot
-sudo nvram SystemAudioVolume=" "
+# sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string ${DOT_HOSTNAME:-"oad-mbp"}
 
 # Disable transparency in the menu bar and elsewhere on Yosemite
 defaults write com.apple.universalaccess reduceTransparency -bool true
+
+# Enable Dark Mode
+defaults write NSGlobalDomain AppleInterfaceStyle -string Dark
 
 # Menu bar: hide the Time Machine, Volume, and User icons
 for domain in ~/Library/Preferences/ByHost/com.apple.systemuiserver.*; do
@@ -43,7 +40,7 @@ defaults write com.apple.systemuiserver menuExtras -array \
 	"/System/Library/CoreServices/Menu Extras/Bluetooth.menu" \
 	"/System/Library/CoreServices/Menu Extras/AirPort.menu" \
 	"/System/Library/CoreServices/Menu Extras/Battery.menu" \
-"/System/Library/CoreServices/Menu Extras/Clock.menu"
+	"/System/Library/CoreServices/Menu Extras/Clock.menu"
 
 # Show fast user switching menu as: icon
 defaults write -g userMenuExtraStyle -int 2
@@ -95,10 +92,6 @@ defaults write NSGlobalDomain NSTextShowsControlCharacters -bool true
 # Set Help Viewer windows to non-floating mode
 defaults write com.apple.helpviewer DevMode -bool true
 
-# Reveal IP address, hostname, OS version, etc. when clicking the clock
-# in the login window
-sudo defaults write /Library/Preferences/com.apple.loginwindow AdminHostInfo HostName
-
 # Restart automatically if the computer freezes
 sudo systemsetup -setrestartfreeze on
 
@@ -117,6 +110,42 @@ defaults write NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool false
 
 # Disable smart dashes as they’re annoying when typing code
 defaults write NSGlobalDomain NSAutomaticDashSubstitutionEnabled -bool false
+
+# Disable automatic period substitution by double-tapping space as they’re annoying when typing code
+defaults write NSGlobalDomain NSAutomaticPeriodSubstitutionEnabled -bool false
+
+###############################################################################
+# Login window #
+###############################################################################
+
+# Some of the following doesn't seem to work anymore in sierra with FileVault enabled.
+# See: http://blog.eriknicolasgomez.com/2016/09/24/apples-efi-logonui-managing-macos-sierras-wallpaper/
+
+# Reveal IP address, hostname, OS version, etc. when clicking the clock
+# in the login window
+sudo defaults write /Library/Preferences/com.apple.loginwindow AdminHostInfo HostName
+
+# Show the Sleep, Restart and Shut Down Buttons on login screen
+sudo defaults write /Library/Preferences/com.apple.loginwindow 'PowerOffDisabled' -bool false
+
+# Hide Password Hints
+sudo defaults write /Library/Preferences/com.apple.loginwindow 'RetriesUntilHint' -int 0
+
+# Show Login Text
+sudo defaults write /Library/Preferences/com.apple.loginwindow 'LoginwindowText' -string "Contacter le propriétaire / Owner Contact:\\naudard@gmail.com\\n@_dhar"
+
+###############################################################################
+# Power Settings
+###############################################################################
+
+# Set standby delay to 4 hours (default is 1 hour)
+sudo pmset -a standbydelay 14400
+
+# Wake computer when laptop is opened
+sudo pmset -a lidwake 1
+
+# Disable the sound effects on boot
+sudo nvram SystemStartupSound=" "
 
 ###############################################################################
 # SSD-specific tweaks                                                         #
@@ -198,6 +227,9 @@ defaults write NSGlobalDomain AppleMetricUnits -bool true
 
 # Set the timezone; see `systemsetup -listtimezones` for other values
 systemsetup -settimezone "Europe/Paris" > /dev/null
+
+# Flash the : in the menu bar
+defaults write com.apple.menuextra.clock FlashDateSeparators -bool false
 
 # Disable auto-correct
 # defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false
@@ -376,6 +408,9 @@ defaults write com.apple.dock tilesize -int 36
 # Enable magnification
 defaults write com.apple.dock magnification -bool true
 
+# Set the icon magnified size
+defaults write com.apple.dock largesize -float 96
+
 # Change minimize/maximize window effect
 defaults write com.apple.dock mineffect -string "scale"
 
@@ -417,6 +452,7 @@ defaults write com.apple.dock mru-spaces -bool false
 
 # Remove the auto-hiding Dock delay
 defaults write com.apple.dock autohide-delay -float 0
+
 # Remove the animation when hiding/showing the Dock
 defaults write com.apple.dock autohide-time-modifier -float 0
 
@@ -489,6 +525,9 @@ defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebK
 
 # Show the full URL in the address bar (note: this still hides the scheme)
 defaults write com.apple.Safari ShowFullURLInSmartSearchField -bool true
+
+# Set “DuckDuckGo” as Default Search Provider
+defaults write com.apple.Safari SearchProviderIdentifier -string 'com.duckduckgo'
 
 # Prevent Safari from opening ‘safe’ files automatically after downloading
 defaults write com.apple.Safari AutoOpenSafeDownloads -bool false
@@ -720,8 +759,12 @@ defaults write com.apple.ActivityMonitor SortDirection -int 0
 # Enable the debug menu in iCal (pre-10.8)
 #defaults write com.apple.iCal IncludeDebugMenu -bool true
 
+# Enable week numbers in iCal
+defaults write com.apple.iCal "Show Week Numbers" -bool true
+
 # Use plain text mode for new TextEdit documents
 defaults write com.apple.TextEdit RichText -int 0
+
 # Open and save files as UTF-8 in TextEdit
 defaults write com.apple.TextEdit PlainTextEncoding -int 4
 defaults write com.apple.TextEdit PlainTextEncodingForWrite -int 4
@@ -747,10 +790,10 @@ defaults write com.apple.SoftwareUpdate AutomaticCheckEnabled -bool true
 defaults write com.apple.SoftwareUpdate ScheduleFrequency -int 1
 
 # Download newly available updates in background
-defaults write com.apple.SoftwareUpdate AutomaticDownload -int 1
+defaults write com.apple.SoftwareUpdate AutomaticDownload -bool true
 
 # Install System data files & security updates
-defaults write com.apple.SoftwareUpdate CriticalUpdateInstall -int 1
+defaults write com.apple.SoftwareUpdate CriticalUpdateInstall -bool true
 
 # Automatically download apps purchased on other Macs
 # defaults write com.apple.SoftwareUpdate ConfigDataInstall -int 1
