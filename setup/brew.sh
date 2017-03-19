@@ -80,18 +80,19 @@ brew tap caskroom/cask
 
 # OSX apps
 brew cask install 1password
-brew cask install gpgtools
+brew cask install airfoil
+brew cask install deezer
 brew cask install dropbox
 brew cask install firefox
 brew cask install google-chrome
+brew cask install gpgtools
+brew cask install moom
 brew cask install opera
 brew cask install opera-next
-brew cask install vlc
-brew cask install airfoil
 brew cask install skype
-brew cask install deezer
 brew cask install slack
-#brew cask install steam
+# brew cask install steam
+brew cask install vlc
 
 # dev
 brew cask install charles
@@ -100,19 +101,19 @@ brew cask install sublime-text
 #brew cask install virtualbox
 
 # OSX quick look plugins (from https://github.com/sindresorhus/quick-look-plugins)
-brew cask install qlcolorcode
-brew cask install qlstephen
-brew cask install qlmarkdown
-brew cask install quicklook-json
-brew cask install qlprettypatch
-brew cask install quicklook-csv
 brew cask install betterzipql
-brew cask install qlimagesize
-brew cask install webpquicklook
-brew cask install suspicious-package
-brew cask install quicklookase
-brew cask install qlvideo
 brew cask install provisionql
+brew cask install qlcolorcode
+brew cask install qlimagesize
+brew cask install qlmarkdown
+brew cask install qlprettypatch
+brew cask install qlstephen
+brew cask install qlvideo
+brew cask install quicklook-csv
+brew cask install quicklook-json
+brew cask install quicklookase
+brew cask install suspicious-package
+brew cask install webpquicklook
 
 
 # Remove outdated versions from the cellar
