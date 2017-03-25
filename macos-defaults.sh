@@ -717,6 +717,7 @@ hash tmutil &> /dev/null && sudo tmutil disablelocal
 # sudo tmutil addexclusion -p "/Library/Caches"
 # sudo tmutil addexclusion -p "/System/Library/Caches"
 # sudo tmutil addexclusion -p "/usr/local/Cellar"
+# sudo tmutil addexclusion -p "/usr/local/Caskroom"
 # sudo tmutil addexclusion -p "/usr/local/lib/node_modules"
 # sudo tmutil addexclusion -p "${HOME}/Public/Drop Box"
 # sudo tmutil addexclusion -p "${HOME}/Library/Caches"
@@ -727,6 +728,9 @@ hash tmutil &> /dev/null && sudo tmutil disablelocal
 # sudo tmutil addexclusion -p "${HOME}/Downloads"
 # sudo tmutil addexclusion -p "${HOME}/Movies"
 # sudo tmutil addexclusion -p "${HOME}/.Trash"
+# sudo tmutil addexclusion -p "${HOME}/.nvm"
+# sudo tmutil addexclusion -p "${HOME}/.ssh"
+# sudo tmutil addexclusion -p "${HOME}/.dotfiles"
 
 ###############################################################################
 # Activity Monitor #
