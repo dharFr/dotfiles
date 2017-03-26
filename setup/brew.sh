@@ -60,6 +60,7 @@ brew install z
 brew install mas
 brew install ffmpeg
 brew install gifsicle
+brew install shellcheck
 
 # nvm setup
 brew install nvm
