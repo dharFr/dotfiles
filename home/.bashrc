@@ -1,3 +1,4 @@
+# shellcheck disable=SC2148
 
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
@@ -5,19 +6,21 @@
 export DOT_FILES="$HOME/.dotfiles"
 
 # Don't display startup logs from Vim shell
-alias _echo="[ -z \"$MYVIMRC\" ] && echo"
+alias _echo='[ -z "$MYVIMRC" ] && echo'
 
 _echo "bash init...."
 ## Load .bash_prompt, .functions and .extra from $DOT_FILES
 # .extra can be used for settings you don’t want to commit
 for file in $DOT_FILES/rc/{bash_prompt,exports,aliases,functions,extra,hub,z,nvm}.sh; do
-  [ -r "$file" ] && source "$file"
-  _echo "|- loaded $file"
+	# shellcheck disable=SC1090
+	[ -r "$file" ] && source "$file"
+	_echo "|- loaded $file"
 done
 
 for file in $DOT_FILES/utils/**/*.sh; do
-  . $file
-  _echo "|- loaded $file"
+	# shellcheck disable=SC1090
+	. "$file"
+	_echo "|- loaded $file"
 done
 unset file
 unalias _echo
@@ -47,9 +50,11 @@ set -o vi
 [ -x /usr/bin/lesspipe ] && eval "$(lesspipe)"
 
 # If possible, add tab completion for many more commands
+# shellcheck disable=SC1091
 [ -f /etc/bash_completion ] && source /etc/bash_completion
 
-if [ -f $DOT_FILES/rc/post_extra.sh ]; then
-  source $DOT_FILES/rc/post_extra.sh
-  echo "|- loaded $DOT_FILES/rc/post_extra.sh"
+if [ -f "$DOT_FILES"/rc/post_extra.sh ]; then
+	# shellcheck disable=SC1090
+	source "$DOT_FILES"/rc/post_extra.sh
+	echo "|- loaded $DOT_FILES/rc/post_extra.sh"
 fi

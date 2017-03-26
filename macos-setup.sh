@@ -1,5 +1,6 @@
 #!/bin/bash -e
 
+# shellcheck disable=SC1091
 . ./setup/_helper-functions.sh
 
 function main() {
@@ -10,9 +11,9 @@ function main() {
 	fi
 
 	# -- Make sure we use ZSH shell ----------------------------------------
-	if [ $SHELL != $(which zsh) ]; then
+	if [ "$SHELL" != "$(which zsh)" ]; then
 		print_info "Switching to ZSH as a default shell. Please restart the script once done."
-		chsh -s $(which zsh)
+		chsh -s "$(which zsh)"
 	else
 		print_info "Already using ZSH shell. All good 👍"
 	fi
@@ -25,7 +26,7 @@ function main() {
 
 	# -- Check for XCode Command Line Tools ----------------------------------------
 	#
-	if [ -z `xcode-select -p` ]; then
+	if [ -z "$(xcode-select -p)" ]; then
 		print_error "Before going through this, you may want to install XCode Command Line tools by running : xcode-select --install"
 		exit
 	else
@@ -34,20 +35,20 @@ function main() {
 
 	# -- Install zim for ZSH ------------------------------------------------------------------
 	if [ ! -d "${ZDOTDIR:-${HOME}}/.zim" ]; then
-		$PWD/setup/zim-setup.zsh
+		"$PWD"/setup/zim-setup.zsh
 	fi
 
 	# -- Homebrew -------------------------------------------------------------
-	$PWD/setup/brew.sh
+	"$PWD"/setup/brew.sh
 
 	# -- NPM ------------------------------------------------------------------
-	$PWD/setup/npm.sh
+	"$PWD"/setup/npm.sh
 
 	# -- Mac App Store --------------------------------------------------------
-	$PWD/setup/mas.sh
+	"$PWD"/setup/mas.sh
 
 	# -- Powerline fonts ------------------------------------------------------
-	$PWD/setup/powerline-fonts.sh
+	"$PWD"/setup/powerline-fonts.sh
 }
 
 main

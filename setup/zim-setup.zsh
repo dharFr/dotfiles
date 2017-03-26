@@ -11,6 +11,6 @@ if [ ! -d "${ZDOTDIR:-${HOME}}/.zim" ]; then
 		touch ${user_file}
 		( print -rn "$(<${template_file})$(<${user_file})" >! ${user_file} ) 2>/dev/null
 	done
-		
+
 	echo "zim installed. Make sure to open a new terminal and run 'source \${ZDOTDIR:-\${HOME}}/.zlogin' to finish optimization"
 fi

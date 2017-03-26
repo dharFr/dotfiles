@@ -5,8 +5,8 @@ My own custom dotfiles
 
 If this looks interesting to you too, you probably want to read http://dotfiles.github.com/
 
-The core logic (mainly `bootstrap.sh`) came from [mathiasbynens/dotfiles](https://github.com/mathiasbynens/dotfiles), 
-as well as the *Installation* doc bellow. 
+The core logic (mainly `bootstrap.sh`) came from [mathiasbynens/dotfiles](https://github.com/mathiasbynens/dotfiles),
+as well as the *Installation* doc bellow.
 
 ## Installation
 

@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
 
-. ./setup/_helper-functions.sh
+# shellcheck disable=SC1091
+source ./setup/_helper-functions.sh
 
 # -- Homebrew ------------------------------------------------------------------
-if [ $(cmd_exists "brew") -eq 0 ]; then
+if [ "$(cmd_exists "brew")" -eq 0 ]; then
 	print_info "installing homebrew..."
 	/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 	print_result $? "homebrew"
@@ -65,12 +66,13 @@ brew install shellcheck
 # nvm setup
 brew install nvm
 
-if [ ! -d "${HOME}/.nvm" ]; then
-	mkdir ${HOME}/.nvm
+if [ ! -d "$HOME/.nvm" ]; then
+	mkdir "$HOME/.nvm"
 fi
 
 # Loads nvm
-source $PWD/rc/nvm.sh
+# shellcheck disable=SC1090
+source "$PWD"/rc/nvm.sh
 
 # install lastest node.js
 nvm install --lts

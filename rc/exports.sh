@@ -34,6 +34,7 @@ export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
 export PATH=/usr/local/bin:/usr/local/sbin:$PATH
 
 # Required by CoreUtils (see setup/brew.sh)
+# shellcheck disable=SC2155
 export PATH=$(brew --prefix coreutils)/libexec/gnubin:$PATH
 
 # Look into local node_modules first

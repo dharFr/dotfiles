@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# shellcheck disable=SC1004
 
 ############################################
 # Modified from emilis bash prompt script
@@ -44,6 +45,7 @@ PROMPT_PREFIX="⚡ "
 PS1="\n$gray"'$fill \t\n'                           # first line filled with dashes and current time on the right
 # PS1=$PS1$green"┌┤"                                # ┌─
 PS1=$PS1$white'$(echo "$PROMPT_PREFIX")'              # [white] prompt prefix (can be overwrited depending on the env)
+# shellcheck disable=SC2154
 PS1=$PS1$cyan'${debian_chroot:+($debian_chroot)}\u' # [cyan]  user
 PS1=$PS1$white@$purple'\h'$white': '$cEnd           # [white] @ [purple] host [white] : [no-color]
 
@@ -65,6 +67,7 @@ else \
 fi)'
 PS1=$PS1'\w'$cEnd'\n'                               # current dir [no-color] new line
 PS1=$PS1$green"↳  "$cEnd                            # [green] └─▻ [no-color]
+# shellcheck disable=SC2154
 PS1=$PS1$nc
 
 PS2="$green>$white "
@@ -88,7 +91,7 @@ function prompt_command {
   # If this is an xterm set the title to user@host:dir
   case "$TERM" in
     xterm*|rxvt*)
-    bname=`basename "${PWD/$HOME/~}"`
+    bname=$(basename "${PWD/$HOME/~}")
     echo -ne "\033]0;${bname}: ${USER}@${HOSTNAME}: ${PWD/$HOME/~}\007"
     ;;
     *)
