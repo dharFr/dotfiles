@@ -14,7 +14,8 @@ export DOT_FILES="$HOME/.dotfiles"
 
 # Don't display startup logs from Vim shell
 function _printf() {
-	[[ -z "$MYVIMRC" ]] && printf "%s" "$@"
+	# shellcheck disable=SC2059
+	[[ -z "$MYVIMRC" ]] && printf "$@"
 }
 
 # Clear line
@@ -39,7 +40,7 @@ for _file in $DOT_FILES/rc/{exports,aliases,functions,extra,hub,z,nvm,post_extra
 		sleep 0.05;
 	fi
 done
-_printf "🤘  All done \\n"
+_printf "🤘  All done $_CL\\n"
 cat "$_tmp"
 
 # Cleanup everything
