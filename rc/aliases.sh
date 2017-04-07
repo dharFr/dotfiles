@@ -13,6 +13,9 @@ alias npmoffline="npm --cache-min 9999999 "
 # see https://github.com/sindresorhus/guides/blob/master/how-not-to-rm-yourself.md#safeguard-rm
 alias rm='rm -i'
 
+# prevent obvious git typo
+alias gti='echo " 🚗 💨" && git'
+
 # Always use color output for `ls`
 if [[ "$OSTYPE" =~ ^darwin ]]; then
 	alias ls="command ls -G"
