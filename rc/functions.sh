@@ -213,3 +213,23 @@ function json() {
 function randomPick() {
 	printf "%s\n" "$@" | sort -R | head -n 1;
 }
+
+# Auto-correct git typos
+# > gi tpush origin master # corrected to 'git push origin master'
+# > gi push origin master  # corrected to 'git push origin master'
+function gi() {
+	notify() {
+		echo "⚠️  auto-correcting 'gi $1' to 'git $2'  ⚠️"
+		echo ""
+	}
+	local __arg=$1;
+	shift;
+	if [ "${__arg:0:1}" == "t" ]; then
+		notify "$__arg $*" "${__arg:1} $*"
+		git "${__arg:1}" "$@"
+	else
+		notify "$__arg $*" "$__arg $*"
+		git "$__arg" "$@"
+	fi;
+	unset -f notify;
+}
