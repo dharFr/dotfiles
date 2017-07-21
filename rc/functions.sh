@@ -134,6 +134,8 @@ function jira {
 	else
 		echo "$__url";
 	fi
+
+	unset -f usage;
 }
 
 function jira2md {
