@@ -42,7 +42,7 @@
 
 [user]
 	name = Olivier Audard
-	email = audard@gmail.com
+	email = olivier@audard.net
 
 [core]
 	excludesfile = ~/.gitignore-global
