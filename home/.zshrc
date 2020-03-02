@@ -29,7 +29,7 @@ _printf "🤖  Configuring shell...\\n"
 touch "$_tmp"
 ## Load a few scripts from $DOT_FILES
 # .extra & .post_extra can be used for settings you don’t want to commit
-for _file in $DOT_FILES/rc/{exports,aliases,functions,extra,hub,z,nvm,post_extra}.sh; do
+for _file in $DOT_FILES/rc/{exports,aliases,functions,extra,hub,z,nvm,gcsdk,post_extra}.sh; do
 	if [ -r "$_file" ]; then
 		_printf " - loading $_file $_CL";
 		sleep 0.05;

@@ -39,4 +39,3 @@ export PATH=$(brew --prefix coreutils)/libexec/gnubin:$PATH
 
 # Look into local node_modules first
 export PATH=./node_modules/.bin:$PATH
-
